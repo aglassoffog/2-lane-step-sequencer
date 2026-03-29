@@ -1,16 +1,24 @@
 let currentPatternName = "";
 
-function savePattern() {
-  const name = document.getElementById("patternName").value.trim();
+function savePattern(seqIndex) {
+  const name = document.getElementById("patternName" + seqIndex).value.trim();
   if (!name) return alert("名前を入れて");
 
   const data = {
-    patterns,
-    tempo
+    patterns: patterns[seqIndex],
+    tempo: tempo
   };
 
   localStorage.setItem("pattern_" + name, JSON.stringify(data));
   updatePatternList();
+}
+
+function savePattern0() {
+  savePattern(0);
+}
+
+function savePattern1() {
+  savePattern(1);  
 }
 
 function updatePatternList() {
@@ -25,9 +33,13 @@ function updatePatternList() {
     li.classList.toggle("selected", name === currentPatternName);
 
     // ロードボタン
-    const loadBtn = document.createElement("button");
-    loadBtn.textContent = "Load";
-    loadBtn.onclick = () => loadPattern(name);
+    const loadBtn0 = document.createElement("button");
+    loadBtn0.textContent = "Load1";
+    loadBtn0.onclick = () => loadPattern(0, name);
+
+    const loadBtn1 = document.createElement("button");
+    loadBtn1.textContent = "Load2";
+    loadBtn1.onclick = () => loadPattern(1, name);
 
     // 名前
     const nameSpan = document.createElement("span");
@@ -43,7 +55,8 @@ function updatePatternList() {
       updatePatternList();
     };
 
-    li.appendChild(loadBtn);
+    li.appendChild(loadBtn0);
+    li.appendChild(loadBtn1);
     li.appendChild(nameSpan);
     li.appendChild(delBtn);
 
@@ -51,7 +64,7 @@ function updatePatternList() {
   });
 }
 
-function loadPattern(name) {
+function loadPattern(seqIndex, name) {
   const data = localStorage.getItem("pattern_" + name);
   if (!data) return;
 
@@ -59,16 +72,24 @@ function loadPattern(name) {
 
   const parsed = JSON.parse(data);
 
-  patterns = parsed.patterns;
+  patterns[seqIndex] = parsed.patterns;
   tempo = parsed.tempo || 120;
 
-  updateUI();
+  updateUI(seqIndex);
   updatePatternList();
 }
 
-function clearPattern() {
-  patterns.forEach(track => track.fill(0));
-  updateUI();
+function clearPattern(seqIndex) {
+  patterns[seqIndex].forEach(track => track.fill(0));
+  updateUI(seqIndex);
+}
+
+function clearPattern0() {
+  clearPattern(0);
+}
+
+function clearPattern1() {
+  clearPattern(1);
 }
 
 function exportPattern() {

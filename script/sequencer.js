@@ -5,9 +5,12 @@ function stepDuration() {
 
 // スケジュール
 function scheduleStep(step, time) {
-  if (patterns[0][step]) playHihat(time);
-  if (patterns[1][step]) playSnare(time);
-  if (patterns[2][step]) playKick(time);
+  if (patterns[0][0][step]) playHihat(time);
+  if (patterns[0][1][step]) playSnare(time);
+  if (patterns[0][2][step]) playKick(time);
+  if (patterns[1][0][step]) playHihat(time);
+  if (patterns[1][1][step]) playSnare(time);
+  if (patterns[1][2][step]) playKick(time);
 
   highlightStep(step);
 }

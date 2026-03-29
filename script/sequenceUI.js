@@ -1,9 +1,9 @@
-function initUI() {
-  const container = document.getElementById("sequencer");
+function initUI(seqIndex) {
+  const container = document.getElementById("sequencer" + seqIndex);
 
-  patterns.forEach((pattern, trackIndex) => {
+  patterns[seqIndex].forEach((pattern, trackIndex) => {
     const row = document.createElement("div");
-    row.className = "row";
+    row.className = "row" + seqIndex;
 
     pattern.forEach((step, stepIndex) => {
       const div = document.createElement("div");
@@ -19,11 +19,11 @@ function initUI() {
     container.appendChild(row);
   });
 
-  updateUI();
+  updateUI(seqIndex);
 }
 
 function highlightStep(step) {
-  const rows = document.querySelectorAll(".row");
+  const rows = document.querySelectorAll(".row0, .row1");
 
   rows.forEach(row => {
     [...row.children].forEach((cell, i) => {
@@ -32,12 +32,12 @@ function highlightStep(step) {
   });
 }
 
-function updateUI() {
-  const rows = document.querySelectorAll(".row");
+function updateUI(seqIndex) {
+  const rows = document.querySelectorAll(".row" + seqIndex);
 
   rows.forEach((row, trackIndex) => {
     [...row.children].forEach((cell, stepIndex) => {
-      const isActive = patterns[trackIndex][stepIndex];
+      const isActive = patterns[seqIndex][trackIndex][stepIndex];
       cell.classList.toggle("active", isActive);
     });
   });
