@@ -1,9 +1,71 @@
-  body { font-family: sans-serif; background: #111; color: #fff; }
-  .row { display: flex; margin: 10px 0; }
-  .step {
-    width: 24px; height: 24px; margin: 2px;
-    background: #333; cursor: pointer;
-  }
-  .step.active { background: #0f0; }
-  .step.playing { outline: 2px solid yellow; }
-  
+body { font-family: sans-serif; background: #111; color: #fff; }
+.row { display: flex; margin: 10px 0; }
+.step {
+  width: 24px; height: 24px; margin: 2px;
+  background: #333; cursor: pointer;
+}
+.step.active { background: #0f0; }
+.step.playing { outline: 2px solid yellow; }
+
+input {
+  width: 50%;
+  margin-bottom: 5px;
+  padding: 5px;
+  background: #222;
+  color: white;
+  border: 1px solid #444;
+}
+
+button {
+  margin: 2px;
+  background: #333;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #555;
+}
+
+#app {
+  display: flex;
+  height: 100vh;
+}
+
+#left {
+  flex: 1;
+  padding: 20px;
+}
+
+#right {
+  width: 250px;
+  background: #1a1a1a;
+  border-left: 1px solid #333;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+ul {
+  padding-inline-start: 10px;
+}
+
+#patternList li {
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#patternList button {
+  flex-shrink: 0;
+}
+
+#patternList span {
+  flex: 1;
+}
+
+.selected {
+  background: #333;
+}

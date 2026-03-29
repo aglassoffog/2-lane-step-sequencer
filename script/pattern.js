@@ -1,3 +1,4 @@
+let currentPatternName = "";
 
 function savePattern() {
   const name = document.getElementById("patternName").value.trim();
@@ -8,10 +9,7 @@ function savePattern() {
     tempo
   };
 
-  console.log(data.patterns);
-
   localStorage.setItem("pattern_" + name, JSON.stringify(data));
-
   updatePatternList();
 }
 
@@ -23,13 +21,19 @@ function updatePatternList() {
     if (!key.startsWith("pattern_")) return;
 
     const name = key.replace("pattern_", "");
-
     const li = document.createElement("li");
+    li.classList.toggle("selected", name === currentPatternName);
 
     // ロードボタン
     const loadBtn = document.createElement("button");
     loadBtn.textContent = "Load";
     loadBtn.onclick = () => loadPattern(name);
+
+    // 名前
+    const nameSpan = document.createElement("span");
+    nameSpan.textContent = name;
+    nameSpan.style.flex = "1";
+    nameSpan.style.margin = "0 8px";
 
     // 削除ボタン
     const delBtn = document.createElement("button");
@@ -39,8 +43,8 @@ function updatePatternList() {
       updatePatternList();
     };
 
-    li.textContent = name + " ";
     li.appendChild(loadBtn);
+    li.appendChild(nameSpan);
     li.appendChild(delBtn);
 
     list.appendChild(li);
@@ -51,12 +55,15 @@ function loadPattern(name) {
   const data = localStorage.getItem("pattern_" + name);
   if (!data) return;
 
+  currentPatternName = name;
+
   const parsed = JSON.parse(data);
 
   patterns = parsed.patterns;
   tempo = parsed.tempo || 120;
 
   updateUI();
+  updatePatternList();
 }
 
 function clearPattern() {

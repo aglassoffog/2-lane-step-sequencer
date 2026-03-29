@@ -8,21 +8,26 @@
 <body>
 
 <h2>Step Sequencer</h2>
-<button onclick="start()">Start</button>
-<button onclick="stop()">Stop</button>
 
-<div id="sequencer"></div>
+<div id="app">
+  <div id="left">
+    <button onclick="start()">Start</button>
+    <button onclick="stop()">Stop</button>
 
-<h3>Pattern Manager</h3>
+    <div id="sequencer"></div>
 
-<input id="patternName" placeholder="pattern name">
-<button onclick="savePattern()">Save</button>
+    <input id="patternName" placeholder="pattern name">
+    <button onclick="savePattern()">Save</button>
+    <button onclick="clearPattern()">Clear</button>
 
-<ul id="patternList"></ul>
+  </div>
 
-<button onclick="savePattern()">Save</button>
-<button onclick="loadPattern()">Load</button>
-<button onclick="clearPattern()">Clear</button>
+  <div id="right">
+    <h3>Pattern</h3>
+    <ul id="patternList"></ul>
+  </div>
+
+</div>
 
 <script src="script/inst.js"></script>
 <script src="script/sequenceUI.js"></script>

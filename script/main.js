@@ -18,9 +18,9 @@ let patterns = [
 ];
 
 // 初期パターン
-for (let i=0;i<16;i++) patterns[0][i] = 1;
-patterns[1][4] = patterns[1][12] = 1;
-patterns[2][0] = patterns[2][4] = patterns[2][8] = patterns[2][12] = 1;
+// for (let i=0;i<16;i++) patterns[0][i] = 1;
+// patterns[1][4] = patterns[1][12] = 1;
+// patterns[2][0] = patterns[2][4] = patterns[2][8] = patterns[2][12] = 1;
 
 initUI();
 updatePatternList();
