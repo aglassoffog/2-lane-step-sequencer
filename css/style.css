@@ -1,0 +1,9 @@
+  body { font-family: sans-serif; background: #111; color: #fff; }
+  .row { display: flex; margin: 10px 0; }
+  .step {
+    width: 24px; height: 24px; margin: 2px;
+    background: #333; cursor: pointer;
+  }
+  .step.active { background: #0f0; }
+  .step.playing { outline: 2px solid yellow; }
+  
