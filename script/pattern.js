@@ -20,8 +20,7 @@ function loadPattern(seqIndex, name) {
   currentPatternName = name;
 
   const parsed = JSON.parse(data);
-
-  patterns[seqIndex] = parsed.patterns;
+  patterns[seqIndex].splice(0, 3, ...parsed.patterns);
   tempo = parsed.tempo || 120;
 
   updateUI(seqIndex);

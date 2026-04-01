@@ -55,11 +55,18 @@
     <br><br>
     <label class="button">
       Import
-      <input type="file" style="display:none" onchange="importPatterns(this.files[0])">
+      <input type="file" class="hidden" onchange="importPatterns(this.files[0])">
     </label>
     <span id="fileName">No file</span>
   </div>
 
+</div>
+
+<div id="velocityPopup" class="popup hidden">
+  <div class="popup-content">
+    <h3 id="velTitle"></h3>
+    <div id="velocitySliders"></div>
+  </div>
 </div>
 
 <script src="script/inst.js"></script>
@@ -68,6 +75,7 @@
 <script src="script/patternUI.js"></script>
 <script src="script/pattern.js"></script>
 <script src="script/mixer.js"></script>
+<script src="script/velocity.js"></script>
 <script src="script/main.js"></script>
 </body>
 </html>

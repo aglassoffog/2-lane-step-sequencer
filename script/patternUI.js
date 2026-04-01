@@ -11,7 +11,6 @@ function updatePatternList() {
     const li = document.createElement("li");
     li.classList.toggle("selected", name === currentPatternName);
 
-    // ロードボタン
     const loadBtn0 = document.createElement("button");
     loadBtn0.className = "button"
     loadBtn0.textContent = "Load1";
@@ -22,13 +21,9 @@ function updatePatternList() {
     loadBtn1.textContent = "Load2";
     loadBtn1.onclick = () => loadPattern(1, name);
 
-    // 名前
     const nameSpan = document.createElement("span");
     nameSpan.textContent = name;
-    nameSpan.style.flex = "1";
-    nameSpan.style.margin = "0 8px";
 
-    // 削除ボタン
     const delBtn = document.createElement("button");
     delBtn.className = "button"
     delBtn.textContent = "Delete";

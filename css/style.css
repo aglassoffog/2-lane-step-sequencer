@@ -10,7 +10,7 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
 }
 
 #right {
-  width: 250px;
+  width: 350px;
   background: #1a1a1a;
   border-left: 1px solid #333;
   padding: 10px;
@@ -25,10 +25,6 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
 }
 .step.active { background: #0f0; }
 .step.playing { outline: 2px solid yellow; }
-.group-end {
-  margin-right: 12px;
-}
-
 
 input {
   width: 50%;
@@ -52,7 +48,9 @@ input {
   background: #555;
 }
 
-
+.group-end {
+  margin-right: 12px;
+}
 
 ul {
   padding-inline-start: 10px;
@@ -60,19 +58,54 @@ ul {
 
 #patternList li {
   margin: 5px 0;
-  display: flex;
   justify-content: space-between;
+  display: flex;
   align-items: center;
 }
 
 #patternList button {
+  width: 60px;
   flex-shrink: 0;
 }
 
 #patternList span {
   flex: 1;
+  margin: 0 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .selected {
   background: #333;
+}
+
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.popup-content {
+  background: #222;
+  padding: 20px;
+}
+
+#velocitySliders {
+  display: flex;
+  gap: 4px;
+}
+
+#velocitySliders input {
+  writing-mode: bt-lr; /* or vertical */
+  -webkit-appearance: slider-vertical;
+  width: 20px;
+  height: 120px;
 }
