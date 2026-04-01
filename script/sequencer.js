@@ -28,9 +28,9 @@ function scheduler() {
   }
 }
 
-function start() {
+async function start() {
   if (audioCtx.state === "suspended") {
-    audioCtx.resume();
+    await audioCtx.resume();
   }
   currentStep = 0;
   nextNoteTime = audioCtx.currentTime;
