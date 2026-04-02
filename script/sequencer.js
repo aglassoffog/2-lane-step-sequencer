@@ -6,9 +6,16 @@ function stepDuration() {
 // スケジュール
 function scheduleStep(step, time) {
   patterns.forEach((pattern, seqIndex) => {
-    if (pattern[0][step] > 0) playHihat(seqIndex, time, pattern[0][step]);
-    if (pattern[1][step] > 0) playSnare(seqIndex, time, pattern[1][step]);
-    if (pattern[2][step] > 0) playKick(seqIndex, time, pattern[2][step]);
+    // if (pattern[0][step] > 0) playNoise(seqIndex, time, pattern[0][step], pitches[seqIndex][0][step]);
+    if (pattern[0][step] > 0) {
+      playSound(seqIndex, time, pattern[0][step], sounds[seqIndex][0].type);
+    }
+    if (pattern[1][step] > 0) {
+      playSound(seqIndex, time, pattern[1][step], sounds[seqIndex][1].type);
+    }
+    if (pattern[2][step] > 0) {
+      playSound(seqIndex, time, pattern[2][step], sounds[seqIndex][2].type);
+    }
   });
   highlightStep(step);
 }

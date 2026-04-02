@@ -42,3 +42,30 @@ function playHihat(seqIndex, time, velocity) {
   osc.start(time);
   osc.stop(time + 0.05);
 }
+
+function playNoise(seqIndex, time, velocity, pitchVal) {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  osc.type = "sawtooth";
+  const base = 100;
+  const range = 2000;
+  const freq = base + pitchVal * range;
+
+  osc.frequency.setValueAtTime(freq, time);
+  osc.frequency.linearRampToValueAtTime(freq * 10, time + 0.1);
+  // osc.frequency.linearRampToValueAtTime(freq * 0.3, time + 0.2);
+  osc.frequency.exponentialRampToValueAtTime(freq * (0.5 + Math.random()), time + 0.2);
+
+  const filter = audioCtx.createBiquadFilter();
+  filter.type = "highpass";
+  filter.frequency.value = 500;
+
+  gain.gain.setValueAtTime(velocity, time);
+  gain.gain.exponentialRampToValueAtTime(0.001, time + 1);
+
+  // osc.connect(gain).connect(seqGains[seqIndex]);
+  osc.connect(filter).connect(gain).connect(seqGains[seqIndex]);
+  osc.start(time);
+  osc.stop(time + 1);
+}

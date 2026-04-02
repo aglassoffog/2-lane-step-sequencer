@@ -12,8 +12,15 @@ function initUI() {
       velBtn.addEventListener("pointerdown", () => {
         openVelocity(seqIndex, trackIndex);
       });
-
       row.appendChild(velBtn);
+
+      // const pthBtn = document.createElement("button");
+      // pthBtn.textContent = "Pth";
+      // pthBtn.classList.add("button", "seq"+(seqIndex+1), "group-end");
+      // pthBtn.addEventListener("pointerdown", () => {
+      //   openPitch(seqIndex, trackIndex);
+      // });
+      // row.appendChild(pthBtn);
 
       track.forEach((_, stepIndex) => {
         const div = document.createElement("div");

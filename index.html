@@ -29,31 +29,33 @@
     <button id="saveBtn2" class="button seq2">Save</button>
     <button id="clrBtn2" class="button seq2">Clear</button>
     <div id="sequencer2"></div>
-
   </div>
 
   <div id="right">
-    <h3>Pattern</h3>
+    <h3 class="ptn">Pattern</h3>
     <ul id="patternList"></ul>
-    <br><br>
+    <br>
     <button class="button" onclick="exportAllPatterns()">Export All</button>
-    <br><br>
     <label class="button">
       Import
       <input type="file" class="hidden" onchange="importPatterns(this.files[0])">
     </label>
     <span id="fileName">No file</span>
+    <br><br>
+    <h3 class="snd">Sound</h3>
+    <button id="soundSetting1" class="button">HiHat</button>
+    <button id="soundSetting2" class="button">Snare</button>
+    <button id="soundSetting3" class="button">Kick</button>
   </div>
-
 </div>
 
-<div id="velocityPopup" class="popup hidden">
+<div id="stepPopup" class="popup hidden">
   <div class="popup-content">
-    <h3>Velocity</h3>
-    <span id="seqTitle"></span>
-    <span id="trackTitle"></span>
-    <br><br>
-    <div id="velocitySliders"></div>
+    <h3 id="popTitle"></h3>
+    <div id="subTitle"></div>
+    <br>
+    <div id="stepControl"></div>
+    <div id="stepSliders"></div>
   </div>
 </div>
 
@@ -81,6 +83,8 @@
 <script src="script/sequencer.js"></script>
 <script src="script/patternUI.js"></script>
 <script src="script/pattern.js"></script>
+<script src="script/soundUI.js"></script>
+<script src="script/sound.js"></script>
 <script src="script/mixer.js"></script>
 <script src="script/velocity.js"></script>
 <script src="script/main.js"></script>

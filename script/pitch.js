@@ -1,4 +1,4 @@
-function openVelocity(seqIndex, trackIndex) {
+function openPitch(seqIndex, trackIndex) {
   const popup = document.getElementById("stepPopup");
   const sliders = document.getElementById("stepSliders");
   const subTitle = document.getElementById("subTitle");
@@ -8,19 +8,18 @@ function openVelocity(seqIndex, trackIndex) {
   subTitle.innerHTML = "";
 
   const popTitle = document.getElementById("popTitle");
-  popTitle.textContent = "Velocity";
+  popTitle.textContent = "Pitch";
 
   const seqTitle = document.createElement("span");
   seqTitle.textContent = "Sequence" + (seqIndex+1);
   seqTitle.className = "seq" + (seqIndex+1);
   subTitle.appendChild(seqTitle);
 
-  const trackTitle = document.createElement("span");
+  const trackTitle = document.getElementById("trackTitle");
   trackTitle.textContent = " Track " + (trackIndex+1);
   trackTitle.className = "seq" + (seqIndex+1);
-  subTitle.appendChild(trackTitle);
 
-  patterns[seqIndex][trackIndex].forEach((step, stepIndex) => {
+  pitches[seqIndex][trackIndex].forEach((step, stepIndex) => {
     const input = document.createElement("input");
     input.type = "range";
     input.min = 0;
@@ -33,16 +32,9 @@ function openVelocity(seqIndex, trackIndex) {
     }
 
     input.oninput = () => {
-      patterns[seqIndex][trackIndex][stepIndex] = parseFloat(input.value);
-      updateUI(seqIndex);
+      pitches[seqIndex][trackIndex][stepIndex] = parseFloat(input.value);
     };
 
     sliders.appendChild(input);
   });
 }
-
-stepPopup.addEventListener("pointerdown", e => {
-  if (e.target === stepPopup) {
-    stepPopup.classList.add("hidden");
-  }
-});

@@ -1,13 +1,14 @@
-let currentPatternName = "";
-
 function loadPattern(seqIndex, name) {
   const data = localStorage.getItem("pattern_" + name);
   if (!data) return;
 
-  currentPatternName = name;
+  const patternName = document.getElementById("patternName"+(seqIndex+1));
+  patternName.value = name;
 
   const parsed = JSON.parse(data);
   patterns[seqIndex].splice(0, 3, ...parsed.patterns);
+  sounds[seqIndex].splice(0, 3,
+    ...(parsed.sounds || [{type: 0},{type: 1},{type: 2}]));
   tempo = parsed.tempo || 120;
 
   updateUI(seqIndex);
@@ -20,6 +21,7 @@ function savePattern(seqIndex) {
 
   const data = {
     patterns: patterns[seqIndex],
+    sounds: sounds[seqIndex],
     tempo: tempo
   };
 
@@ -29,6 +31,7 @@ function savePattern(seqIndex) {
 
 function clearPattern(seqIndex) {
   patterns[seqIndex].forEach(track => track.fill(0));
+  sounds[seqIndex].splice(0, 3, ...[{type: 0},{type: 1},{type: 2}]);
   updateUI(seqIndex);
 }
 

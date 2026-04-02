@@ -35,11 +35,20 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
 }
 
 .seq1 {
-  color: #4da6ff;
+  color: hsl(210, 80%, 60%);
 }
 .seq2 {
-  color: #ff4d4d;
+  color: hsl(0, 80%, 60%);
 }
+.ptn {
+  color: hsl(280, 80%, 60%);
+}
+.snd {
+  color: hsl(45, 80%, 60%);
+}
+/*
+  color: hsl(140, 80%, 60%);
+*/
 .playing {
   color: #0ff;
 }
@@ -77,7 +86,7 @@ ul {
   padding-inline-start: 10px;
 }
 
-#patternList li {
+li {
   margin: 5px 0;
   justify-content: space-between;
   display: flex;
@@ -97,9 +106,7 @@ ul {
   text-overflow: ellipsis;
 }
 
-.selected {
-  background: #333;
-}
+
 
 .popup {
   position: fixed;
@@ -121,12 +128,12 @@ ul {
   touch-action: none;
 }
 
-#velocitySliders {
+#stepSliders {
   display: flex;
   gap: 4px;
 }
 
-#velocitySliders input {
+#stepSliders input {
   writing-mode: vertical-lr;
   direction: rtl;
   width: 20px;

@@ -9,15 +9,14 @@ function updatePatternList() {
 
     const name = key.replace("pattern_", "");
     const li = document.createElement("li");
-    li.classList.toggle("selected", name === currentPatternName);
 
     const loadBtn0 = document.createElement("button");
-    loadBtn0.className = "button"
+    loadBtn0.classList.add("button");
     loadBtn0.textContent = "Load1";
     loadBtn0.onclick = () => loadPattern(0, name);
 
     const loadBtn1 = document.createElement("button");
-    loadBtn1.className = "button"
+    loadBtn1.classList.add("button");
     loadBtn1.textContent = "Load2";
     loadBtn1.onclick = () => loadPattern(1, name);
 
@@ -25,7 +24,7 @@ function updatePatternList() {
     nameSpan.textContent = name;
 
     const delBtn = document.createElement("button");
-    delBtn.className = "button"
+    delBtn.classList.add("button");
     delBtn.textContent = "Delete";
     delBtn.onclick = () => {
       localStorage.removeItem(key);
