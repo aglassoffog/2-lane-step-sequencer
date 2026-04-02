@@ -35,21 +35,39 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
 }
 
 .seq1 {
+/*
   color: hsl(210, 80%, 60%);
+  color: #1e1e1e;
+  color: #d4d4d4;
+  color: #6a9955;
+  color: #ce9178;
+  color: #b5cea8;
+  color: #007acc;
+  color: #569cd6;
+  color: #4FC1FF;
+*/
+  color: hsl(201, 100%, 70%);
 }
 .seq2 {
-  color: hsl(0, 80%, 60%);
-}
-.ptn {
-  color: hsl(280, 80%, 60%);
+  /* color: hsl(0, 80%, 60%); */
+  /* color: #ce9178; */
+  color: hsl(5, 100%, 70%);
 }
 .snd {
-  color: hsl(45, 80%, 60%);
+  /* color: hsl(280, 80%, 60%); */
+  /* color: #c586c0; */
+  /* color: hsl(275, 100%, 65%); */
+  /* color: #6a9955; */
+  color: hsl(40, 100%, 45%);
+
 }
-/*
-  color: hsl(140, 80%, 60%);
-*/
+.ptn {
+  /* color: hsl(45, 80%, 60%); */
+  /* color: #dcdcaa; */
+  color: hsl(60, 100%, 45%);
+}
 .playing {
+  /* color: hsl(140, 80%, 60%); */
   color: #0ff;
 }
 
