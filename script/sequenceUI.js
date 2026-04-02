@@ -7,7 +7,7 @@ function initUI() {
       row.className = "row" + seqIndex;
 
       const sndName = document.createElement("span");
-      sndName.className = "track";
+      sndName.classList.add("track", "seq"+(seqIndex+1));
       sndName.textContent = soundNames[sounds[seqIndex][trackIndex].type];
       row.appendChild(sndName);
 
