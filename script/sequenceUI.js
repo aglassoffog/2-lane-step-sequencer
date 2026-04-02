@@ -21,10 +21,10 @@ function initUI() {
           div.classList.add("group-end");
         }
 
-        div.onclick = () => {
+        div.addEventListener("pointerdown", e => {
           updateStep(pattern[trackIndex], stepIndex);
           updateStepUI(div, pattern[trackIndex][stepIndex]);
-        };
+        });
 
         div.oncontextmenu = (e) => {
           e.preventDefault();
