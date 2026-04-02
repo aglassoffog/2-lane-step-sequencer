@@ -9,7 +9,9 @@ function initUI() {
       const velBtn = document.createElement("button");
       velBtn.textContent = "Vel";
       velBtn.classList.add("button", "seq"+(seqIndex+1), "group-end");
-      velBtn.onclick = () => openVelocity(seqIndex, trackIndex);
+      velBtn.addEventListener("pointerdown", () => {
+        openVelocity(seqIndex, trackIndex);
+      });
 
       row.appendChild(velBtn);
 
@@ -21,7 +23,7 @@ function initUI() {
           div.classList.add("group-end");
         }
 
-        div.addEventListener("pointerdown", e => {
+        div.addEventListener("pointerdown", () => {
           updateStep(pattern[trackIndex], stepIndex);
           updateStepUI(div, pattern[trackIndex][stepIndex]);
         });
