@@ -50,6 +50,7 @@ function openMixer() {
 
 mixerPopup.addEventListener("pointerdown", e => {
   if (e.target === mixerPopup) {
+    e.stopPropagation();
     mixerPopup.classList.add("hidden");
   }
 });
