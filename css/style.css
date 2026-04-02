@@ -108,6 +108,7 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 }
 
 .hidden {
@@ -117,6 +118,7 @@ ul {
 .popup-content {
   background: #222;
   padding: 20px;
+  touch-action: none;
 }
 
 #velocitySliders {
