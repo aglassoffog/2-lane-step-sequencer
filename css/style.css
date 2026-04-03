@@ -39,8 +39,7 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
 }
 
 .track {
-  margin: 2px;
-  padding: 5px 10px;
+  padding: 5px;
   flex: 1;
 }
 
@@ -83,6 +82,7 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
 
 input {
   width: 50%;
+  margin: 2px;
   margin-bottom: 5px;
   padding: 5px;
   background: #222;

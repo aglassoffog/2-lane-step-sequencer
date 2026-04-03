@@ -13,7 +13,7 @@ function initUI() {
 
       const velBtn = document.createElement("button");
       velBtn.textContent = "Vel";
-      velBtn.classList.add("button", "seq"+(seqIndex+1));
+      velBtn.classList.add("button", "seq"+(seqIndex+1), "group-end");
       velBtn.addEventListener("pointerdown", () => {
         openVelocity(seqIndex, trackIndex);
       });
