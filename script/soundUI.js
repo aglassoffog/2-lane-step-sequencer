@@ -2,7 +2,9 @@ const soundNames = [
   "HiHat",
   "Snare",
   "Kick",
-  "Noise"
+  "Noise",
+  "Crystal",
+  "Brush"
 ]
 
 function openSound(typeIndex) {
@@ -21,6 +23,7 @@ function openSound(typeIndex) {
 
   for(let i=0;i<2;i++){
     const div = document.createElement("div");
+    div.className = "sound-load";
     const br = document.createElement("br");
     const seqTitle = document.createElement("span");
     seqTitle.textContent = "Sequence"+(i+1);
@@ -40,7 +43,7 @@ function openSound(typeIndex) {
   }
 }
 
-soundSetting1.addEventListener("pointerdown", () => {openSound(0);});
-soundSetting2.addEventListener("pointerdown", () => {openSound(1);});
-soundSetting3.addEventListener("pointerdown", () => {openSound(2);});
-soundSetting4.addEventListener("pointerdown", () => {openSound(3);});
+document.querySelectorAll(".soundSetting").forEach((btn, i) => {
+  console.log(btn);
+  btn.addEventListener("pointerdown", () => {openSound(i);});
+});

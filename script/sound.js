@@ -21,6 +21,10 @@ function playSound(seqIndex, time, velocity, typeIndex) {
     playKick(seqIndex, time, velocity);
   } else if (typeIndex === 3) {
     playNoise(seqIndex, time, velocity);
+  } else if (typeIndex === 4) {
+    playCrystal(seqIndex, time, velocity);
+  } else if (typeIndex === 5) {
+    playBrush(seqIndex, time, velocity);
   }
 }
 
@@ -41,10 +45,7 @@ function playKick(seqIndex, time, velocity) {
 
 function playSnare(seqIndex, time, velocity) {
   const noise = audioCtx.createBufferSource();
-  const buffer = audioCtx.createBuffer(1, 44100, 44100);
-  const data = buffer.getChannelData(0);
-  for (let i=0;i<44100;i++) data[i] = Math.random()*2-1;
-  noise.buffer = buffer;
+  noise.buffer = noiseBuffer;
 
   const gain = audioCtx.createGain();
   gain.gain.setValueAtTime(velocity, time);
@@ -92,3 +93,51 @@ function playNoise(seqIndex, time, velocity, pitchVal) {
   osc.stop(time + 0.4);
 }
 
+function playCrystal(seqIndex, time, velocity, pitchVal) {
+  const freq = 1040;
+  const carrierOsc = audioCtx.createOscillator();
+  const modOsc = audioCtx.createOscillator();
+  const modGain = audioCtx.createGain();
+  const crystalGain = audioCtx.createGain();
+
+  carrierOsc.type = "sine";
+  modOsc.type = "sine";
+
+  carrierOsc.frequency.value = freq;
+  modOsc.frequency.value = freq * 2.7;
+  modGain.gain.value = freq * 0.4;
+
+  modOsc.connect(modGain);
+  modGain.connect(carrierOsc.frequency);
+  carrierOsc.connect(crystalGain);
+  crystalGain.connect(seqGains[seqIndex]);
+
+  crystalGain.gain.setValueAtTime(velocity, time);
+  crystalGain.gain.exponentialRampToValueAtTime(0.001, time + 1.5);
+
+  carrierOsc.start(time);
+  modOsc.start(time);
+  carrierOsc.stop(time + 1.5);
+  modOsc.stop(time + 1.5);
+}
+
+function playBrush(seqIndex, time, velocity) {
+  const noise = audioCtx.createBufferSource();
+  noise.buffer = noiseBuffer;
+
+  const gain = audioCtx.createGain();
+  gain.gain.setValueAtTime(0, time);
+
+  const bursts = [0, 0.02, 0.04, 0.06];
+  bursts.forEach((offset, i) => {
+    const t = time + offset;
+    gain.gain.setValueAtTime(velocity * 0.8, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+  });
+
+  noise.connect(gain);
+  gain.connect(seqGains[seqIndex]);
+
+  noise.start(time);
+  noise.stop(time + 0.5);
+}

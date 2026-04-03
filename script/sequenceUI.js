@@ -67,7 +67,7 @@ function updateStep(track, stepIndex) {
 
 function updateStepUI(el, velocity) {
   el.classList.toggle("active", velocity > 0);
-  el.style.opacity = velocity > 0 ? velocity : 0.2;
+  el.style.opacity = velocity > 0 ? velocity : 0.3;
 }
 
 function highlightStep(step) {

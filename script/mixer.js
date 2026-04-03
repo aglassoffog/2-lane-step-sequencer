@@ -31,6 +31,7 @@ function initAudio() {
   seqGains[0].connect(mixGains[0]).connect(masterGain);
   seqGains[1].connect(mixGains[1]).connect(masterGain);
 
+  createNoiseBuffer();
   audioCtx.resume();
 }
 
