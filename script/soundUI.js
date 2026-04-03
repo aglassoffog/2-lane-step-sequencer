@@ -1,7 +1,8 @@
 const soundNames = [
   "HiHat",
   "Snare",
-  "Kick"
+  "Kick",
+  "Noise"
 ]
 
 function openSound(typeIndex) {
@@ -42,3 +43,4 @@ function openSound(typeIndex) {
 soundSetting1.addEventListener("pointerdown", () => {openSound(0);});
 soundSetting2.addEventListener("pointerdown", () => {openSound(1);});
 soundSetting3.addEventListener("pointerdown", () => {openSound(2);});
+soundSetting4.addEventListener("pointerdown", () => {openSound(3);});
