@@ -13,11 +13,12 @@
   <div id="left">
     <button id="playBtn" class="button ctl-btn">Start</button>
     <button id="mixerBtn" class="button ctl-btn">Mixer</button>
+    <button id="sequenceBtn" class="button ctl-btn">Sequence</button>
 
     <br><br>
 
     <span class="seq-title seq1">Sequence1</span>
-    <input id="patternName1" placeholder="pattern name">
+    <input id="patternName1" type="text" placeholder="pattern name">
     <button id="saveBtn1" class="button seq1">Save</button>
     <button id="clrBtn1" class="button seq1">Clear</button>
     <div id="sequencer1"></div>
@@ -25,7 +26,7 @@
     <br>
 
     <span class="seq-title seq2">Sequence2</span>
-    <input id="patternName2" placeholder="pattern name">
+    <input id="patternName2" type="text" placeholder="pattern name">
     <button id="saveBtn2" class="button seq2">Save</button>
     <button id="clrBtn2" class="button seq2">Clear</button>
     <div id="sequencer2"></div>
@@ -33,6 +34,7 @@
 
   <div id="right">
     <h4 class="ptn">Pattern</h4>
+    <input id="patternSearch" type="text" placeholder="search pattern..." />
     <ul id="patternList"></ul>
     <br>
     <button class="button" onclick="exportAllPatterns()">Export All</button>
@@ -83,6 +85,7 @@
 </div>
 
 <script src="script/noise.js"></script>
+<script src="script/sequenceP.js"></script>
 <script src="script/sequenceUI.js"></script>
 <script src="script/sequencer.js"></script>
 <script src="script/patternUI.js"></script>
