@@ -1,95 +1,65 @@
-function initUI() {
-  patterns.forEach((pattern, seqIndex) => {
-    const container = document.getElementById("sequencer"+(seqIndex+1));
+function initSequenceUI() {
+  const control = document.getElementById("sequenceControl");
 
-    pattern.forEach((track, trackIndex) => {
-      const row = document.createElement("div");
-      row.className = "row" + seqIndex;
+  const h4t = document.createElement("h4");
+  h4t.textContent = "tempo";
+  control.appendChild(h4t);
 
-      const sndName = document.createElement("span");
-      sndName.classList.add("track", "seq"+(seqIndex+1));
-      sndName.textContent = soundNames[sounds[seqIndex][trackIndex].type];
-      row.appendChild(sndName);
+  const span = document.createElement("span");
+  span.textContent = tempo;
+  const input = document.createElement("input");
+  input.type = "range";
+  input.min = 40;
+  input.max = 200;
+  input.step = 1;
+  input.value = tempo;
+  input.oninput = () => {
+    tempo = parseInt(input.value);
+    span.textContent = tempo;
+  };
+  control.appendChild(input);
+  control.appendChild(span);
 
-      const velBtn = document.createElement("button");
-      velBtn.textContent = "Vel";
-      velBtn.classList.add("button", "seq"+(seqIndex+1), "group-end");
-      velBtn.addEventListener("pointerdown", () => {
-        openVelocity(seqIndex, trackIndex);
-      });
-      row.appendChild(velBtn);
+  const br = document.createElement("br");
+  control.appendChild(br);
+  control.appendChild(br);
 
-      // const pthBtn = document.createElement("button");
-      // pthBtn.textContent = "Pth";
-      // pthBtn.classList.add("button", "seq"+(seqIndex+1), "group-end");
-      // pthBtn.addEventListener("pointerdown", () => {
-      //   openPitch(seqIndex, trackIndex);
-      // });
-      // row.appendChild(pthBtn);
 
-      track.forEach((_, stepIndex) => {
-        const div = document.createElement("div");
-        div.className = "step";
+  const h4m = document.createElement("h4");
+  h4m.textContent = "mode";
+  control.appendChild(h4m);
 
-        if ((stepIndex + 1) % 4 === 0) {
-          div.classList.add("group-end");
-        }
+  const container = document.createElement("div");
+  container.className = "sequence-mode";
 
-        div.addEventListener("pointerdown", () => {
-          updateStep(pattern[trackIndex], stepIndex);
-          updateStepUI(div, pattern[trackIndex][stepIndex]);
-        });
+  const options = [
+    "Fix",
+    "Sequence1 in order", "Sequence2 in order",
+    "alternate in order",
+    "Sequence1 in random", "Sequence2 in random",
+    "alternate in randowm"
+  ];
 
-        div.oncontextmenu = (e) => {
-          e.preventDefault();
-
-          let v = pattern[trackIndex][stepIndex] || 0;
-          v += 0.25;
-          if (v > 1) v = 0;
-
-          pattern[trackIndex][stepIndex] = v;
-          updateStep(pattern[trackIndex], stepIndex);
-        };
-
-        row.appendChild(div);
-      });
-
-      container.appendChild(row);
-    })
-
-    updateUI(seqIndex);
-  });
-}
-
-function updateStep(track, stepIndex) {
-  track[stepIndex] = track[stepIndex] > 0 ? 0 : 1;
-}
-
-function updateStepUI(el, velocity) {
-  el.classList.toggle("active", velocity > 0);
-  el.style.opacity = velocity > 0 ? velocity : 0.3;
-}
-
-function highlightStep(step) {
-  const rows = document.querySelectorAll(".row0, .row1");
-
-  rows.forEach(row => {
-    row.querySelectorAll(":scope > .step").forEach((cell, i) => {
-      cell.classList.toggle("playing", i === step);
+  options.forEach((mode, i) => {
+    const label = document.createElement("label");
+    const radio = document.createElement("input");
+    const text = document.createElement("span");
+    text.textContent = mode;
+    radio.type = "radio";
+    radio.name = "sequenceMode";
+    radio.value = i;
+    radio.addEventListener("change", () => {
+      if (radio.checked) {
+        sequenceMode = parseInt(radio.value);
+      }
     });
-  });
-}
 
-function updateUI(seqIndex) {
-  const rows = document.querySelectorAll(".row" + seqIndex);
+    if (i === sequenceMode) radio.checked = true;
 
-  rows.forEach((row, trackIndex) => {
-    const span = row.querySelector(":scope > span");
-    span.textContent = soundNames[sounds[seqIndex][trackIndex].type];
-    
-    row.querySelectorAll(":scope > .step").forEach((cell, stepIndex) => {
-      const velocity = patterns[seqIndex][trackIndex][stepIndex];
-      updateStepUI(cell, velocity);
-    });
+    label.appendChild(radio);
+    label.appendChild(text);
+    container.appendChild(label);
   });
+
+  control.appendChild(container);
 }

@@ -36,21 +36,12 @@ function initAudio() {
 }
 
 function setVolume(seqIndex, value) {
+  if (!isRunning) return;
   seqGains[seqIndex].gain.value = parseFloat(value);
 }
 
 function setBalance(value) {
+  if (!isRunning) return;
   mixGains[0].gain.value = 1 - parseFloat(value);
   mixGains[1].gain.value = parseFloat(value);
 }
-
-mixerBtn.addEventListener("pointerdown", e => {
-  const popup = document.getElementById("mixerPopup");
-  popup.classList.remove("hidden");
-});
-
-mixerPopup.addEventListener("pointerdown", e => {
-  if (e.target === mixerPopup) {
-    mixerPopup.classList.add("hidden");
-  }
-});

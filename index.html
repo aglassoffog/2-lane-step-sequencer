@@ -12,8 +12,6 @@
 <div id="app">
   <div id="left">
     <button id="playBtn" class="button ctl-btn">Start</button>
-    <button id="mixerBtn" class="button ctl-btn">Mixer</button>
-    <button id="sequenceBtn" class="button ctl-btn">Sequence</button>
 
     <br><br>
 
@@ -33,25 +31,50 @@
   </div>
 
   <div id="right">
-    <h4 class="ptn">Pattern</h4>
-    <input id="patternSearch" type="text" placeholder="search pattern..." />
-    <ul id="patternList"></ul>
-    <br>
-    <button class="button" onclick="exportAllPatterns()">Export All</button>
-    <label class="button">
-      Import
-      <input type="file" class="hidden" onchange="importPatterns(this.files[0])">
-    </label>
-    <span id="fileName">No file</span>
-    <br><br>
-    <h4 class="snd">Sound</h4>
-    <button class="button soundSetting">HiHat</button>
-    <button class="button soundSetting">Snare</button>
-    <button class="button soundSetting">Kick</button>
-    <button class="button soundSetting">Noise</button>
-    <button class="button soundSetting">Crystal</button>
-    <br>
-    <button class="button soundSetting">Brush</button>
+    <div id="tabs"></div>
+
+    <div id="tabContents">
+      <div id="patternTab" class="tabContent">
+        <h4 class="ptn">Pattern</h4>
+        <input id="patternSearch" type="text" placeholder="search pattern..." />
+        <ul id="patternList"></ul>
+        <br>
+        <button class="button" onclick="exportAllPatterns()">Export All</button>
+        <label class="button">
+          Import
+          <input type="file" class="hidden" onchange="importPatterns(this.files[0])">
+        </label>
+        <span id="fileName">No file</span>
+      </div>
+      <div id="soundTab" class="tabContent" style="display:none;">
+        <h4 class="snd">Sound</h4>
+        <div id="soundSettings"></div>      
+      </div>
+      <div id="moveTab" class="tabContent" style="display:none;">
+        <h4 class="snd">Move</h4>
+        <div id="moveControl"></div>
+      </div>
+      <div id="sequenceTab" class="tabContent" style="display:none;">
+        <h4 class="snd">Sequence</h4>
+        <div id="sequenceControl"></div>
+      </div>
+      <div id="mixerTab" class="tabContent" style="display:none;">
+        <h4 class="snd">Mixer</h4>
+        <div id="mixerSliders">
+          <div class="mixer-channel">
+            <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(0, this.value)">
+            <span class="seq-title seq1">Sequence1</span>
+          </div>
+          <div class="mixer-channel">
+            <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(1, this.value)">
+            <span class="seq-title seq2">Sequence2</h3>
+          </div>
+        </div>
+        <div>
+          <input class="mixer-balance" type="range" min="0" max="1" step="0.01" value="0.5" oninput="setBalance(this.value)">
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -68,26 +91,17 @@
 <div id="mixerPopup" class="popup hidden">
   <div class="popup-content">
     <h3>Mixer</h3>
-    <div id="mixerSliders">
-      <div class="mixer-channel">
-        <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(0, this.value)">
-        <span class="seq-title seq1">Sequence1</span>
-      </div>
-      <div class="mixer-channel">
-        <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(1, this.value)">
-        <span class="seq-title seq2">Sequence2</h3>
-      </div>
-    </div>
-    <div>
-      <input class="mixer-balance" type="range" min="0" max="1" step="0.01" value="0.5" oninput="setBalance(this.value)">
-    </div>
+
   </div>
 </div>
 
+<script src="script/tabUI.js"></script>
 <script src="script/noise.js"></script>
-<script src="script/sequenceP.js"></script>
-<script src="script/sequenceUI.js"></script>
+<script src="script/sequencerUI.js"></script>
 <script src="script/sequencer.js"></script>
+<script src="script/sequenceUI.js"></script>
+<script src="script/moveUI.js"></script>
+<script src="script/move.js"></script>
 <script src="script/patternUI.js"></script>
 <script src="script/pattern.js"></script>
 <script src="script/soundUI.js"></script>

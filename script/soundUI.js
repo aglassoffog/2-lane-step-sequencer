@@ -43,7 +43,17 @@ function openSound(typeIndex) {
   }
 }
 
-const soundSetting = document.querySelectorAll(".soundSetting");
-soundSetting.forEach((btn, i) => {
-  btn.addEventListener("pointerdown", () => {openSound(i);});
+const soundSettings = document.getElementById("soundSettings");
+soundNames.forEach((name, i) => {
+    const button = document.createElement("button");
+    button.classList.add("button", "soundSetting");
+    button.textContent = name;
+    button.addEventListener("pointerdown", () => {openSound(i);});
+
+    soundSettings.appendChild(button);
+
+    if ((i + 1) % 5 === 0) {
+      const br = document.createElement("br");      
+      soundSettings.appendChild(br);
+    }
 });
