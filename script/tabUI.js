@@ -2,15 +2,9 @@ const tabNames = [
   "Pattern",
   "Sound",
   "Move",
-  "Sequence",
   "Mixer"
 ]
 const tab = document.getElementById("tabs");
-const patternTab = document.getElementById("patternTab");
-const soundTab = document.getElementById("soundTab");
-const moveTab = document.getElementById("moveTab");
-const sequenceTab = document.getElementById("sequenceTab");
-
 tabNames.forEach(name => {
   const btn = document.createElement("button");
   btn.textContent = name;
