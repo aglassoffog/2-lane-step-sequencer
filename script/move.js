@@ -3,3 +3,4 @@ function leftShift(pattern) {
     track.push(track.shift());
   });  
 }
+

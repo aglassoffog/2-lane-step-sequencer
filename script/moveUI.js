@@ -14,6 +14,20 @@ function initMoveUI() {
     updateUI(0);
   }
 
-  
+  const seq2Left = document.getElementById("move-seq2-left");
+  seq2Left.onclick = () => {
+    leftShift(patterns[1]);
+    updateUI(1);
+  }
+
+  const allLeft = document.getElementById("move-all-left");
+  allLeft.onclick = () => {
+    leftShift(patterns[0]);
+    leftShift(patterns[1]);
+    updateUI(0);
+    updateUI(1);
+  }
+
+
   // control.appendChild(moveBtn0);
 }

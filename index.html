@@ -47,25 +47,6 @@
         <span id="fileName" class="track">No file</span>
       </div>
 
-      <div id="soundTab" class="tabContent" style="display:none;">
-        <br>
-        <div id="soundSettings"></div>
-
-      </div>
-
-      <div id="moveTab" class="tabContent" style="display:none;">
-        <br>
-        <div id="moveControl"></div>
-        <div class="form">
-          <div class="form-row">
-            <label class="form-label seq1">Sequence1</label>
-            <div>
-              <button id="move-seq1-left" class="button">Left</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div id="mixerTab" class="tabContent" style="display:none;">
         <br>
         <div id="mixerSliders">
@@ -81,6 +62,36 @@
         <div>
           <input class="mixer-balance" type="range" min="0" max="1" step="0.01" value="0.5" oninput="setBalance(this.value)">
         </div>
+      </div>
+
+      <div id="moveTab" class="tabContent" style="display:none;">
+        <br>
+        <div id="moveControl"></div>
+        <div class="form">
+          <div class="form-row">
+            <label class="form-label seq1">Sequence1</label>
+            <div>
+              <button id="move-seq1-left" class="button">Left</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label seq2">Sequence2</label>
+            <div>
+              <button id="move-seq2-left" class="button">Left</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label">All</label>
+            <div>
+              <button id="move-all-left" class="button">Left</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="soundTab" class="tabContent" style="display:none;">
+        <br>
+        <div id="soundSettings"></div>
       </div>
 
     </div>
