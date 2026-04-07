@@ -41,6 +41,6 @@ let sounds = [[
 ]];
 
 initSequencerUI();
-initMoveUI();
+initShiftUI();
 updatePatternList();
 tabs[0].click();
