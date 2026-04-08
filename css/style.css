@@ -180,30 +180,27 @@ li {
   height: 120px;
 }
 
+
 #mixerSliders {
   display: flex;
   gap: 160px;
   align-items: flex-end;
 }
-
 .mixer-channel {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .mixer-channel input {
   writing-mode: vertical-lr;
   direction: rtl;
   width: 30px;
   height: 150px;
 }
-
 .mixer-channel span {
   margin-top: 6px;
   font-size: 12px;
 }
-
 .mixer-balance {
   width: 90%;
 }
@@ -228,6 +225,13 @@ li {
   flex: 1;
   min-width: 0;
   white-space: nowrap;
+}
+
+.shift-mode label{
+  cursor: pointer;
+}
+.shift-mode span{
+  margin-right: 10px;
 }
 
 

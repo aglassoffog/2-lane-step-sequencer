@@ -69,7 +69,10 @@ function selectPattern() {
 }
 
 function selectRepeatShift() {
-  if (repeatShiftMode === 1 || (repeatShiftMode === 2 && currentRepeatShift === 0)) {
+  if (repeatShiftMode === 1 ||
+    (repeatShiftMode === 2 && currentRepeatShift === 0) ||
+    (repeatShiftMode === 3 && currentRepeatShift === 0)) {
+
     for(let i=0;i<3;i++){
       Object.keys(shiftOptions).forEach(key => {
         for(let k=0;k<4;k++){
@@ -101,7 +104,9 @@ function selectRepeatShift() {
 }
 
 function scheduleStepHalf(step, time) {
-  if (repeatShiftMode === 1 || (repeatShiftMode === 2 && currentRepeatShift === 1)) {
+  if (repeatShiftMode === 1 ||
+    (repeatShiftMode === 2 && currentRepeatShift === 1) ||
+    (repeatShiftMode === 3 && currentRepeatShift === 3)) {
     patterns.forEach((pattern, seqIndex) => {
       if (pattern[0][step] > 0 && (
         repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][1]
@@ -128,7 +133,6 @@ async function scheduler() {
     if(isFirst) {
       isFirst = false;
     } else {
-      console.log(repeatShiftMode, currentRepeatShift);
       await selectRepeatShift();
     }
     await scheduleStep(currentStep, nextNoteTime);
@@ -136,6 +140,8 @@ async function scheduler() {
     nextStep();
     if (repeatShiftMode === 2) {
       currentRepeatShift = (currentRepeatShift + 1) % 2;
+    } else if (repeatShiftMode === 3) {
+      currentRepeatShift = (currentRepeatShift + 1) % 4;
     }
   }
 }
