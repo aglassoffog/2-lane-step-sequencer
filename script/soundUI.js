@@ -15,14 +15,8 @@ function openSound(typeIndex) {
   title.textContent = soundNames[typeIndex];
 
   for(let i=0;i<2;i++){
-    // const div = document.createElement("div");
-    // div.className = "sound-load";
-    // const br = document.createElement("br");
-    // const seqTitle = document.createElement("span");
-    // seqTitle.textContent = "Sequence"+(i+1);
-    // seqTitle.classList.add("seq-title", "seq"+(i+1));
-    // control.appendChild(seqTitle);
     const div = document.getElementById("sound-load"+(i+1));
+    div.innerHTML = "";
 
     for(let k=0;k<3;k++){
       const loadBtn = document.createElement("button");
@@ -31,9 +25,6 @@ function openSound(typeIndex) {
       loadBtn.onclick = () => loadSound(i, k, typeIndex);
       div.appendChild(loadBtn);
     }
-
-    // control.appendChild(div);
-    // control.appendChild(br);
   }
 }
 

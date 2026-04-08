@@ -1,3 +1,5 @@
+let allRows;
+
 function initSequencerUI() {
   patterns.forEach((pattern, seqIndex) => {
     const container = document.getElementById("sequencer"+(seqIndex+1));
@@ -8,7 +10,7 @@ function initSequencerUI() {
 
       const sndName = document.createElement("span");
       sndName.classList.add("track", "seq"+(seqIndex+1));
-      sndName.textContent = soundNames[sounds[seqIndex][trackIndex].type];
+      // sndName.textContent = soundNames[sounds[seqIndex][trackIndex].type];
       row.appendChild(sndName);
 
       const velBtn = document.createElement("button");
@@ -39,7 +41,7 @@ function initSequencerUI() {
           updateStep(pattern[trackIndex], stepIndex);
           updateStepUI(div, pattern[trackIndex][stepIndex]);
         });
-
+/*
         div.oncontextmenu = (e) => {
           e.preventDefault();
 
@@ -50,7 +52,7 @@ function initSequencerUI() {
           pattern[trackIndex][stepIndex] = v;
           updateStep(pattern[trackIndex], stepIndex);
         };
-
+*/
         row.appendChild(div);
       });
 
@@ -59,6 +61,7 @@ function initSequencerUI() {
 
     updateUI(seqIndex);
   });
+  allRows = document.querySelectorAll(".row0, .row1");
 }
 
 function updateStep(track, stepIndex) {
@@ -71,9 +74,7 @@ function updateStepUI(el, velocity) {
 }
 
 function highlightStep(step) {
-  const rows = document.querySelectorAll(".row0, .row1");
-
-  rows.forEach(row => {
+  allRows.forEach(row => {
     row.querySelectorAll(":scope > .step").forEach((cell, i) => {
       cell.classList.toggle("playing", i === step);
     });

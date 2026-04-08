@@ -1,3 +1,19 @@
+let isRepeatShift = false;
+let repeatShiftMap = [
+  { Left: [false,false,false,false],
+    Right: [false,false,false,false],
+    Up:  [false,false,false,false,false],
+    Down:  [false,false,false,false,false]},
+  { Left: [false,false,false,false],
+    Right: [false,false,false,false],
+    Up: [false,false,false,false,false],
+    Down:  [false,false,false,false,false]},
+  { Left: [false,false,false,false],
+    Right: [false,false,false,false],
+    Up: [false,false,false,false,false],
+    Down:  [false,false,false,false,false]},
+]
+
 function leftShift(pattern, index) {
   pattern.forEach((track, trackIndex) => {
     if(index == null) {
@@ -47,3 +63,55 @@ function upShiftAll(index) {
     }
   }
 }
+
+function downShift(pattern, index) {
+  const patternShift = structuredClone(pattern);
+  patternShift.unshift(patternShift.pop());
+
+  if(index == null) {
+    pattern.splice(0, 3, ...patternShift);
+  } else {
+    for(let i=0;i<3;i++){
+      pattern[i].splice(index*4, 4, ...patternShift[i].splice(index*4, 4));
+    }
+  }
+}
+
+function downShiftAll(index) {
+  const patternsShift = structuredClone(patterns);
+
+  patternsShift[0].unshift(patternsShift[1].pop());
+  patternsShift[1].unshift(patternsShift[0].pop());
+
+  if(index == null) {
+    patterns[0].splice(0, 3, ...patternsShift[0]);
+    patterns[1].splice(0, 3, ...patternsShift[1]);
+  } else {
+    for(let i=0;i<3;i++){
+      patterns[0][i].splice(index*4, 4, ...patternsShift[0][i].splice(index*4, 4));
+      patterns[1][i].splice(index*4, 4, ...patternsShift[1][i].splice(index*4, 4));
+    }
+  }
+}
+
+repeatShift.addEventListener("change", () => {
+  isRepeatShift = repeatShift.checked;
+/*
+  if (!isRepeatShift) {
+    const buttons = document.querySelectorAll(".shift");
+    buttons.forEach(button => {
+      button.classList.remove("shift");
+    });
+
+    for(let i=0;i<3;i++){
+      shiftOptions.keys(options).forEach(key => {
+        for(let k=0;k<4;k++){
+          if (i < 2 || (i === 2 && k === 0)) {
+            repeatShiftMap[i][key][k] = false;
+          }
+        }
+      });
+    }
+  }
+*/
+});
