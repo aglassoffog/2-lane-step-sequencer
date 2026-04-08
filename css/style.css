@@ -106,29 +106,6 @@ input[type="radio"] {
   border: 1px solid #444;
 */
 }
-.check input {
-  display: none;
-}
-.check span {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  background: #222;
-  border: 2px solid #888;
-  border-radius: 4px;
-}
-.check input:checked + span {
-  background: hsl(40, 100%, 45%);
-}
-.check input:checked + span::after {
-  content: "✔";
-  color: white;
-  font-size: 12px;
-  position: relative;
-  left: 1px;
-  top: -1px;
-}
-
 
 
 
@@ -279,16 +256,14 @@ li {
 .form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 }
-
 .form-row {
   display: grid;
   grid-template-columns: 70px 1fr;
   align-items: center;
   gap: 10px;
 }
-
 .form-label {
   font-weight: bold;
   text-align: right;

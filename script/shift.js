@@ -1,4 +1,4 @@
-let isRepeatShift = false;
+let repeatShiftMode = 0;
 let repeatShiftMap = [
   { Left: [false,false,false,false],
     Right: [false,false,false,false],
@@ -93,25 +93,3 @@ function downShiftAll(index) {
     }
   }
 }
-
-repeatShift.addEventListener("change", () => {
-  isRepeatShift = repeatShift.checked;
-/*
-  if (!isRepeatShift) {
-    const buttons = document.querySelectorAll(".shift");
-    buttons.forEach(button => {
-      button.classList.remove("shift");
-    });
-
-    for(let i=0;i<3;i++){
-      shiftOptions.keys(options).forEach(key => {
-        for(let k=0;k<4;k++){
-          if (i < 2 || (i === 2 && k === 0)) {
-            repeatShiftMap[i][key][k] = false;
-          }
-        }
-      });
-    }
-  }
-*/
-});

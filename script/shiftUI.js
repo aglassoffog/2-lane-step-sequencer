@@ -17,7 +17,7 @@ function initShiftUI() {
         button.className = "button";
         button.textContent = (k > 0) ? key.slice(0, 1) + k : key;
         button.onclick = () => {
-          if (isRepeatShift) {
+          if (repeatShiftMode > 0) {
             repeatShiftMap[i][key][k] = !repeatShiftMap[i][key][k];
             button.classList.toggle("shift", repeatShiftMap[i][key][k]);
           } else {
@@ -43,7 +43,7 @@ function initShiftUI() {
         button.className = "button";
         button.textContent = (k > 0) ? key.slice(0, 1) + k*4 : key;
         button.onclick = () => {
-          if (isRepeatShift) {
+          if (repeatShiftMode > 0) {
             repeatShiftMap[i][key][k] = !repeatShiftMap[i][key][k];
             button.classList.toggle("shift", repeatShiftMap[i][key][k]);
           } else {
@@ -62,3 +62,11 @@ function initShiftUI() {
     });
   }
 }
+
+document.getElementsByName("repeatShiftMode").forEach(radio => {
+  radio.addEventListener("change", () => {
+    if (radio.checked) {
+      repeatShiftMode = parseInt(radio.value);
+    }
+  });
+});

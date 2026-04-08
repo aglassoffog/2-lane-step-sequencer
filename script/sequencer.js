@@ -2,6 +2,7 @@ let sequenceMode = 0;
 let currentSequence = 0;
 let currentPattern = 0;
 let isFirst = false;
+let currentRepeatShift = 0;
 
 // ステップ長（16分音符）
 function stepDuration() {
@@ -68,7 +69,7 @@ function selectPattern() {
 }
 
 function selectRepeatShift() {
-  if (isRepeatShift) {
+  if (repeatShiftMode === 1 || (repeatShiftMode === 2 && currentRepeatShift === 0)) {
     for(let i=0;i<3;i++){
       Object.keys(shiftOptions).forEach(key => {
         for(let k=0;k<4;k++){
@@ -100,7 +101,7 @@ function selectRepeatShift() {
 }
 
 function scheduleStepHalf(step, time) {
-  if (isRepeatShift) {
+  if (repeatShiftMode === 1 || (repeatShiftMode === 2 && currentRepeatShift === 1)) {
     patterns.forEach((pattern, seqIndex) => {
       if (pattern[0][step] > 0 && (
         repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][1]
@@ -127,11 +128,15 @@ async function scheduler() {
     if(isFirst) {
       isFirst = false;
     } else {
+      console.log(repeatShiftMode, currentRepeatShift);
       await selectRepeatShift();
     }
     await scheduleStep(currentStep, nextNoteTime);
     scheduleStepHalf((currentStep + 1) % steps, nextNoteTime+stepDuration()/2);
     nextStep();
+    if (repeatShiftMode === 2) {
+      currentRepeatShift = (currentRepeatShift + 1) % 2;
+    }
   }
 }
 
