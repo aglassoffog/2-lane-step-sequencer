@@ -11,24 +11,24 @@ function loadSound(seqIndex, trackIndex, typeIndex) {
   sounds[seqIndex][trackIndex].type = typeIndex;
 }
 
-function playSound(seqIndex, time, velocity, typeIndex) {
+function playSound(dest, time, velocity, typeIndex) {
 
   if (typeIndex === 0) {
-    playHihat(seqIndex, time, velocity);
+    playHihat(dest, time, velocity);
   } else if (typeIndex === 1) {
-    playSnare(seqIndex, time, velocity);
+    playSnare(dest, time, velocity);
   } else if (typeIndex === 2) {
-    playKick(seqIndex, time, velocity);
+    playKick(dest, time, velocity);
   } else if (typeIndex === 3) {
-    playNoise(seqIndex, time, velocity);
+    playNoise(dest, time, velocity);
   } else if (typeIndex === 4) {
-    playCrystal(seqIndex, time, velocity);
+    playCrystal(dest, time, velocity);
   } else if (typeIndex === 5) {
-    playBrush(seqIndex, time, velocity);
+    playBrush(dest, time, velocity);
   }
 }
 
-function playKick(seqIndex, time, velocity) {
+function playKick(dest, time, velocity) {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
 
@@ -38,12 +38,12 @@ function playKick(seqIndex, time, velocity) {
   gain.gain.setValueAtTime(velocity, time);
   gain.gain.exponentialRampToValueAtTime(0.001, time + 0.1);
 
-  osc.connect(gain).connect(seqGains[seqIndex]);
+  osc.connect(gain).connect(dest);
   osc.start(time);
   osc.stop(time + 0.1);
 }
 
-function playSnare(seqIndex, time, velocity) {
+function playSnare(dest, time, velocity) {
   const noise = audioCtx.createBufferSource();
   noise.buffer = noiseBuffer;
 
@@ -51,11 +51,11 @@ function playSnare(seqIndex, time, velocity) {
   gain.gain.setValueAtTime(velocity, time);
   gain.gain.exponentialRampToValueAtTime(0.01, time + 0.2);
 
-  noise.connect(gain).connect(seqGains[seqIndex]);
+  noise.connect(gain).connect(dest);
   noise.start(time);
 }
 
-function playHihat(seqIndex, time, velocity) {
+function playHihat(dest, time, velocity) {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
 
@@ -65,12 +65,12 @@ function playHihat(seqIndex, time, velocity) {
   gain.gain.setValueAtTime(0.3 * velocity, time);
   gain.gain.exponentialRampToValueAtTime(0.01, time + 0.05);
 
-  osc.connect(gain).connect(seqGains[seqIndex]);
+  osc.connect(gain).connect(dest);
   osc.start(time);
   osc.stop(time + 0.05);
 }
 
-function playNoise(seqIndex, time, velocity, pitchVal) {
+function playNoise(dest, time, velocity, pitchVal) {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
 
@@ -88,12 +88,12 @@ function playNoise(seqIndex, time, velocity, pitchVal) {
   gain.gain.setValueAtTime(velocity, time);
   gain.gain.exponentialRampToValueAtTime(0.001, time + 0.4);
 
-  osc.connect(gain).connect(seqGains[seqIndex]);
+  osc.connect(gain).connect(dest);
   osc.start(time);
   osc.stop(time + 0.4);
 }
 
-function playCrystal(seqIndex, time, velocity, pitchVal) {
+function playCrystal(dest, time, velocity, pitchVal) {
   const freq = 1040;
   const carrierOsc = audioCtx.createOscillator();
   const modOsc = audioCtx.createOscillator();
@@ -110,7 +110,7 @@ function playCrystal(seqIndex, time, velocity, pitchVal) {
   modOsc.connect(modGain);
   modGain.connect(carrierOsc.frequency);
   carrierOsc.connect(crystalGain);
-  crystalGain.connect(seqGains[seqIndex]);
+  crystalGain.connect(dest);
 
   crystalGain.gain.setValueAtTime(velocity, time);
   crystalGain.gain.exponentialRampToValueAtTime(0.001, time + 1.5);
@@ -121,7 +121,7 @@ function playCrystal(seqIndex, time, velocity, pitchVal) {
   modOsc.stop(time + 1.5);
 }
 
-function playBrush(seqIndex, time, velocity) {
+function playBrush(dest, time, velocity) {
   const noise = audioCtx.createBufferSource();
   noise.buffer = noiseBuffer;
 
@@ -136,7 +136,7 @@ function playBrush(seqIndex, time, velocity) {
   });
 
   noise.connect(gain);
-  gain.connect(seqGains[seqIndex]);
+  gain.connect(dest);
 
   noise.start(time);
   noise.stop(time + 0.5);

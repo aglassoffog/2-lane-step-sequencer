@@ -180,7 +180,26 @@ li {
   height: 120px;
 }
 
+.mixer-sliders {
+  display: grid;
+  grid-template-columns: 15px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.mixer-sliders span {
+  padding-left: 10px;
+}
+.mixer-balance {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 30px;
+  height: 150px;
+}
 
+
+
+/*
 #mixerSliders {
   display: flex;
   gap: 160px;
@@ -204,6 +223,7 @@ li {
 .mixer-balance {
   width: 90%;
 }
+*/
 
 .group-end {
   margin-right: 12px;

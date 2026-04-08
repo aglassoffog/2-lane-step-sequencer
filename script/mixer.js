@@ -16,32 +16,35 @@ function initAudio() {
   ];
 
   seqGains = [
-    audioCtx.createGain(),
-    audioCtx.createGain()
+    [audioCtx.createGain(),audioCtx.createGain(),audioCtx.createGain()],
+    [audioCtx.createGain(),audioCtx.createGain(),audioCtx.createGain()]
   ];
 
   mixGains.forEach(g => {
     g.gain.value = 0.5;
+    g.connect(masterGain);
   });
 
-  seqGains.forEach(g => {
+  seqGains[0].forEach(g => {
     g.gain.value = 1.0;
+    g.connect(mixGains[0]);
   });
-
-  seqGains[0].connect(mixGains[0]).connect(masterGain);
-  seqGains[1].connect(mixGains[1]).connect(masterGain);
+  seqGains[1].forEach(g => {
+    g.gain.value = 1.0;
+    g.connect(mixGains[1]);
+  });
 
   createNoiseBuffer();
   audioCtx.resume();
 }
 
-function setVolume(seqIndex, value) {
+function setVolume(seqIndex, trackIndex, value) {
   if (!isRunning) return;
-  seqGains[seqIndex].gain.value = parseFloat(value);
+  seqGains[seqIndex][trackIndex].gain.value = parseFloat(value);
 }
 
 function setBalance(value) {
   if (!isRunning) return;
-  mixGains[0].gain.value = 1 - parseFloat(value);
-  mixGains[1].gain.value = parseFloat(value);
+  mixGains[0].gain.value = parseFloat(value);
+  mixGains[1].gain.value = 1 - parseFloat(value);
 }

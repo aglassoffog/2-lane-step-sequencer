@@ -13,13 +13,13 @@ function stepDuration() {
 function scheduleStep(step, time) {
   patterns.forEach((pattern, seqIndex) => {
     if (pattern[0][step] > 0) {
-      playSound(seqIndex, time, pattern[0][step], sounds[seqIndex][0].type);
+      playSound(seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0].type);
     }
     if (pattern[1][step] > 0) {
-      playSound(seqIndex, time, pattern[1][step], sounds[seqIndex][1].type);
+      playSound(seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1].type);
     }
     if (pattern[2][step] > 0) {
-      playSound(seqIndex, time, pattern[2][step], sounds[seqIndex][2].type);
+      playSound(seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2].type);
     }
   });
   highlightStep(step);
@@ -111,17 +111,17 @@ function scheduleStepHalf(step, time) {
       if (pattern[0][step] > 0 && (
         repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][1]
       )) {
-        playSound(seqIndex, time, pattern[0][step], sounds[seqIndex][0].type);
+        playSound(seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0].type);
       }
       if (pattern[1][step] > 0 && (
         repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][2]
       )) {
-        playSound(seqIndex, time, pattern[1][step], sounds[seqIndex][1].type);
+        playSound(seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1].type);
       }
       if (pattern[2][step] > 0 && (
         repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][3]
       )) {
-        playSound(seqIndex, time, pattern[2][step], sounds[seqIndex][2].type);
+        playSound(seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2].type);
       }
     });
   }

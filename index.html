@@ -49,24 +49,52 @@
 
       <div id="mixerTab" class="tabContent" style="display:none;">
         <br>
-        <div id="mixerSliders">
-          <div class="mixer-channel">
-            <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(0, this.value)">
-            <span class="seq-title seq1">Sequence1</span>
+        <div class="form">
+          <div class="form-row">
+            <label class="form-label seq1">Sequence1</label>
+            <div>
+              <div class="mixer-sliders">
+                <span class="stg">1</span>
+                <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(0, 0, this.value)">
+              </div>
+              <div class="mixer-sliders">
+                <span class="stg">2</span>
+                <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(0, 1, this.value)">
+              </div>
+              <div class="mixer-sliders">
+                <span class="stg">3</span>
+                <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(0, 2, this.value)">
+              </div>
+            </div>
           </div>
-          <div class="mixer-channel">
-            <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(1, this.value)">
-            <span class="seq-title seq2">Sequence2</h3>
+          <div class="form-row">
+            <label class="form-label stg">Balance</label>
+            <div>
+              <input class="mixer-balance" type="range" min="0" max="1" step="0.01" value="0.5" oninput="setBalance(this.value)">
+            </div>
           </div>
-        </div>
-        <div>
-          <input class="mixer-balance" type="range" min="0" max="1" step="0.01" value="0.5" oninput="setBalance(this.value)">
+          <div class="form-row">
+            <label class="form-label seq2">Sequence2</label>
+            <div>
+              <div class="mixer-sliders">
+                <span class="stg">1</span>
+                <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(1, 0, this.value)">
+              </div>
+              <div class="mixer-sliders">
+                <span class="stg">2</span>
+                <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(1, 1, this.value)">
+              </div>
+              <div class="mixer-sliders">
+                <span class="stg">3</span>
+                <input type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(1, 2, this.value)">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div id="shiftTab" class="tabContent" style="display:none;">
         <br>
-        <div id="shiftControl"></div>
         <div class="form">
           <div class="form-row">
             <label class="form-label stg">Repeat</label>
