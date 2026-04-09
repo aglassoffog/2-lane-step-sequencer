@@ -15,9 +15,7 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
   overflow-y: auto;
 }
 
-.seq-title {
-  font-weight: bold;
-}
+
 
 .button {
   margin: 2px;
@@ -27,13 +25,21 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
   padding: 5px 10px;
   cursor: pointer;
 }
-
 .button:hover {
   background: #555;
 }
-
 .ctl-btn {
   font-size: 16px;
+}
+
+
+input[type="text"] {
+  margin: 2px;
+  margin-bottom: 5px;
+  padding: 5px;
+  background: #222;
+  color: white;
+  border: 1px solid #444;
 }
 
 
@@ -41,6 +47,181 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
   padding: 5px;
   width: 35px;
 }
+.row0 { display: flex; margin: 10px 0; }
+.row1 { display: flex; margin: 10px 0; }
+.step {
+  width: 24px; height: 24px; margin: 2px;
+  background: #333; cursor: pointer;
+}
+.step.active { background: #0f0; }
+.step.playing { outline: 2px solid yellow; }
+
+
+
+ul {
+  padding-inline-start: 10px;
+}
+li {
+  margin: 5px 0;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+#patternList button {
+  width: 60px;
+  flex-shrink: 0;
+}
+#patternList span {
+  flex: 1;
+  margin: 0 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.popup-content {
+  background: #222;
+  padding: 20px;
+  touch-action: none;
+}
+.hidden {
+  display: none;
+}
+
+
+#stepSliders {
+  display: flex;
+  gap: 4px;
+}
+#stepSliders input {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 20px;
+  height: 120px;
+}
+
+
+.mixer-sliders {
+  display: grid;
+  grid-template-columns: 15px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.mixer-sliders input {
+  height: 20px;
+}
+.mixer-sliders span {
+  padding-left: 10px;
+}
+.mixer-balance {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 30px;
+  height: 130px;
+}
+
+
+.tempo-div {
+  display: flex;
+}
+#tempo-bar {
+  width: 180px;
+  height: 20px;
+}
+#tempo-span {
+  padding-top: 3px;
+  padding-left: 6px;
+}
+
+
+.group-end {
+  margin-right: 12px;
+}
+
+
+.sequence-mode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.sequence-mode label{
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+}
+.sequence-mode span{
+  padding-top: 3px;
+  padding-left: 6px;
+  min-width: 0;
+  white-space: nowrap;
+  color: #aaa;
+}
+
+
+.shift-mode {
+  display: flex;
+}
+.shift-mode label{
+  cursor: pointer;
+}
+.shift-mode span{
+  color: #aaa;
+  margin-right: 10px;
+  padding-left: 3px;
+}
+
+
+#tabs {
+  display: flex;
+}
+#tabs button {
+  flex: 1;
+  padding: 6px;
+  background: #252526;
+  color: #aaa;
+  border: none;
+  cursor: pointer;
+}
+#tabs button.active {
+  font-weight: bold;
+  color: hsl(40, 100%, 45%);
+  background: #1e1e1e;
+  /* border-bottom: 2px solid #007acc; */
+}
+#tabContents > div {
+  padding: 8px;
+}
+
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+.form-label {
+  font-weight: bold;
+}
+
+
 
 .seq1 {
 /*
@@ -84,211 +265,4 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
 }
 .shift {
   color: hsl(40, 100%, 45%);
-}
-
-
-input[type="text"] {
-  margin: 2px;
-  margin-bottom: 5px;
-  padding: 5px;
-  background: #222;
-  color: white;
-  border: 1px solid #444;
-}
-input[type="radio"] {
-  margin: 2px;
-  margin-right: "6px";
-  margin-bottom: 5px;
-/*
-  padding: 5px;
-  background: #222;
-  color: white;
-  border: 1px solid #444;
-*/
-}
-
-
-
-.row0 { display: flex; margin: 10px 0; }
-.row1 { display: flex; margin: 10px 0; }
-.step {
-  width: 24px; height: 24px; margin: 2px;
-  background: #333; cursor: pointer;
-}
-.step.active { background: #0f0; }
-.step.playing { outline: 2px solid yellow; }
-
-
-
-
-
-ul {
-  padding-inline-start: 10px;
-}
-
-li {
-  margin: 5px 0;
-  justify-content: space-between;
-  display: flex;
-  align-items: center;
-}
-
-#patternList button {
-  width: 60px;
-  flex-shrink: 0;
-}
-
-#patternList span {
-  flex: 1;
-  margin: 0 8px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-
-
-.popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-}
-
-.hidden {
-  display: none;
-}
-
-.popup-content {
-  background: #222;
-  padding: 20px;
-  touch-action: none;
-}
-
-#stepSliders {
-  display: flex;
-  gap: 4px;
-}
-
-#stepSliders input {
-  writing-mode: vertical-lr;
-  direction: rtl;
-  width: 20px;
-  height: 120px;
-}
-
-.mixer-sliders {
-  display: grid;
-  grid-template-columns: 15px 1fr;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.mixer-sliders span {
-  padding-left: 10px;
-}
-.mixer-balance {
-  writing-mode: vertical-lr;
-  direction: rtl;
-  width: 30px;
-  height: 150px;
-}
-
-
-
-/*
-#mixerSliders {
-  display: flex;
-  gap: 160px;
-  align-items: flex-end;
-}
-.mixer-channel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.mixer-channel input {
-  writing-mode: vertical-lr;
-  direction: rtl;
-  width: 30px;
-  height: 150px;
-}
-.mixer-channel span {
-  margin-top: 6px;
-  font-size: 12px;
-}
-.mixer-balance {
-  width: 90%;
-}
-*/
-
-.group-end {
-  margin-right: 12px;
-}
-
-
-.sequence-mode {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-.sequence-mode label{
-  display: flex;
-  width: 100%;
-  cursor: pointer;
-}
-.sequence-mode span{
-  flex: 1;
-  min-width: 0;
-  white-space: nowrap;
-}
-
-.shift-mode label{
-  cursor: pointer;
-}
-.shift-mode span{
-  margin-right: 10px;
-}
-
-
-#tabs {
-  display: flex;
-}
-#tabs button {
-  flex: 1;
-  padding: 6px;
-  background: #252526;
-  color: #aaa;
-  border: none;
-  cursor: pointer;
-}
-#tabs button.active {
-  font-weight: bold;
-  color: hsl(40, 100%, 45%);
-  background: #1e1e1e;
-  /* border-bottom: 2px solid #007acc; */
-}
-#tabContents > div {
-  padding: 8px;
-}
-
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.form-row {
-  display: grid;
-  grid-template-columns: 70px 1fr;
-  align-items: center;
-  gap: 10px;
-}
-.form-label {
-  font-weight: bold;
-  text-align: right;
 }

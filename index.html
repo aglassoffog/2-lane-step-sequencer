@@ -14,7 +14,7 @@
 
 <div id="app">
   <div id="left">
-    <span class="seq-title seq1">Sequence1</span>
+    <span class="form-label seq1">Sequence1</span>
     <input id="patternName1" type="text" placeholder="pattern name">
     <button id="saveBtn1" class="button seq1">Save</button>
     <button id="clrBtn1" class="button seq1">Clear</button>
@@ -22,7 +22,7 @@
 
     <br>
 
-    <span class="seq-title seq2">Sequence2</span>
+    <span class="form-label seq2">Sequence2</span>
     <input id="patternName2" type="text" placeholder="pattern name">
     <button id="saveBtn2" class="button seq2">Save</button>
     <button id="clrBtn2" class="button seq2">Clear</button>
@@ -160,14 +160,14 @@
     <h3>Setting</h3>
     <div class="form">
       <div class="form-row">
-        <label class="form-label stg">tempo</label>
-        <div>
+        <label class="form-label stg">Tempo</label>
+        <div class="tempo-div">
           <input id="tempo-bar" type="range" min="40" max="200" step="1">
-          <span id="tempo-span">120</span>
+          <span id="tempo-span" class="stg">120</span>
         </div>
       </div>
       <div class="form-row">
-        <label class="form-label stg">sequence mode</label>
+        <label class="form-label stg">Sequence mode</label>
         <div id="sequence-mode" class="sequence-mode"></div>
       </div>
     </div>
