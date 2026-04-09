@@ -11,7 +11,6 @@ settingBtn.addEventListener("pointerdown", () => {
 
   const container2 = document.getElementById("sequence-mode");
   container2.innerHTML = "";
-  container2.className = "sequence-mode";
 
   const options = [
     "Fix",
