@@ -1,4 +1,6 @@
 body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
+
+
 #app {
   display: flex;
   height: 100vh;
@@ -16,6 +18,24 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
 }
 
 
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.popup-content {
+  background: #222;
+  padding: 20px;
+  touch-action: none;
+}
+.hidden {
+  display: none;
+}
+
 
 .button {
   margin: 2px;
@@ -31,8 +51,6 @@ body { font-family: sans-serif; background: #111; color: #fff; font-size:12px;}
 .ctl-btn {
   font-size: 16px;
 }
-
-
 input[type="text"] {
   margin: 2px;
   margin-bottom: 5px;
@@ -40,6 +58,16 @@ input[type="text"] {
   background: #222;
   color: white;
   border: 1px solid #444;
+}
+.radio-label {
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+.radio-span {
+  color: #aaa;
+  padding-top: 3px;
+  padding-left: 6px;
 }
 
 
@@ -77,26 +105,6 @@ li {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-
-
-.popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-}
-.popup-content {
-  background: #222;
-  padding: 20px;
-  touch-action: none;
-}
-.hidden {
-  display: none;
 }
 
 
@@ -140,47 +148,10 @@ li {
   width: 180px;
   height: 20px;
 }
-#tempo-span {
-  padding-top: 3px;
-  padding-left: 6px;
-}
 
 
 .group-end {
   margin-right: 12px;
-}
-
-
-.sequence-mode {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-.sequence-mode label{
-  display: flex;
-  width: 100%;
-  cursor: pointer;
-}
-.sequence-mode span{
-  padding-top: 3px;
-  padding-left: 6px;
-  min-width: 0;
-  white-space: nowrap;
-  color: #aaa;
-}
-
-
-.shift-mode {
-  display: flex;
-}
-.shift-mode label{
-  cursor: pointer;
-}
-.shift-mode span{
-  color: #aaa;
-  margin-right: 10px;
-  padding-left: 3px;
 }
 
 

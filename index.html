@@ -44,7 +44,7 @@
           Import
           <input type="file" class="hidden" onchange="importPatterns(this.files[0])">
         </label>
-        <span id="fileName" class="track">No file</span>
+        <span id="fileName" class="radio-span">No file</span>
       </div>
 
       <div id="mixerTab" class="tabContent" style="display:none;">
@@ -99,10 +99,22 @@
           <div class="form-row">
             <label class="form-label stg">Repeat</label>
             <div class="shift-mode">
-              <label><input type="radio" name="repeatShiftMode" value="0" checked><span>Off</span></label>
-              <label><input type="radio" name="repeatShiftMode" value="1"><span>1</span></label>
-              <label><input type="radio" name="repeatShiftMode" value="2"><span>1/2</span></label>
-              <label><input type="radio" name="repeatShiftMode" value="3"><span>1/4</span></label>
+              <label class="radio-label">
+                <input type="radio" name="repeatShiftMode" value="0" checked>
+                <span class="radio-span">Off</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="repeatShiftMode" value="1">
+                <span class="radio-span">1</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="repeatShiftMode" value="2">
+                <span class="radio-span">1/2</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="repeatShiftMode" value="3">
+                <span class="radio-span">1/4</span>
+                </label>
             </div>
           </div>
           <div class="form-row">
@@ -163,7 +175,7 @@
         <label class="form-label stg">Tempo</label>
         <div class="tempo-div">
           <input id="tempo-bar" type="range" min="40" max="200" step="1">
-          <span id="tempo-span" class="stg">120</span>
+          <span id="tempo-span" class="radio-span">120</span>
         </div>
       </div>
       <div class="form-row">

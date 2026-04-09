@@ -25,7 +25,9 @@ settingBtn.addEventListener("pointerdown", () => {
     const label = document.createElement("label");
     const radio = document.createElement("input");
     const text = document.createElement("span");
+    label.classList.add("radio-label");
     text.textContent = mode;
+    text.classList.add("radio-span");
     radio.type = "radio";
     radio.name = "sequenceMode";
     radio.value = i;
