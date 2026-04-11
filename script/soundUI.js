@@ -1,10 +1,14 @@
 const soundNames = [
-  "HiHat",
+  "Click",
   "Snare",
   "Kick",
   "Noise",
   "Crystal",
-  "Brush"
+  "Brush",
+  "Bass",
+  "HiHat",
+  "OpHat",
+  "Crash"
 ]
 
 function openSound(typeIndex) {

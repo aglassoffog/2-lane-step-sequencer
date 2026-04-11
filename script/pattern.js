@@ -25,7 +25,7 @@ function loadPattern(seqIndex, name, patternIndex) {
 
 function savePattern(seqIndex) {
   const name = document.getElementById("patternName"+(seqIndex+1)).value.trim();
-  if (!name) return alert("名前を入れて");
+  if (!name) return alert("Please enter the pattern name.");
 
   const data = {
     patterns: patterns[seqIndex],
