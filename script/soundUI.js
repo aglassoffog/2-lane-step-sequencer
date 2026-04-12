@@ -9,7 +9,9 @@ const soundNames = [
   "HiHat",
   "OpHat",
   "Crash",
-  "Noise2"
+  "Noise2",
+  "Sine",
+  "Cowbell"
 ]
 
 function openSound(typeIndex) {

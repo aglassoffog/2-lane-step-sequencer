@@ -35,6 +35,10 @@ function playSound(dest, time, velocity, typeIndex) {
     playCrash(dest, time, velocity);
   } else if (typeIndex === 10) {
     playNoise2(dest, time, velocity);
+  } else if (typeIndex === 11) {
+    playSine(dest, time, velocity);
+  } else if (typeIndex === 12) {
+    playCowbell(dest, time, velocity);
   }
 }
 
@@ -275,4 +279,65 @@ function playNoise2(dest, time, velocity) {
   noise.connect(filter).connect(shaper).connect(gain).connect(dest);
   noise.start(time);
   noise.stop(time + 0.4);
+}
+
+function playSine(dest, time, velocity) {
+  const osc = audioCtx.createOscillator();
+  osc.frequency.setValueAtTime(440, time);
+
+  const filter = audioCtx.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.Q.value = 20;
+  const base = 2000;
+  const range = 6000;
+  const freq = base + Math.random() * range;
+
+  filter.frequency.setValueAtTime(100, time);
+  filter.frequency.exponentialRampToValueAtTime(freq, time + 0.05);
+  filter.frequency.exponentialRampToValueAtTime(100, time + 0.4);
+
+  const shaper = audioCtx.createWaveShaper();
+  shaper.curve = makeDistortionCurve(10);
+  shaper.oversample = "4x";
+
+  const gain = audioCtx.createGain();
+  gain.gain.setValueAtTime(0.4 * velocity, time);
+  gain.gain.exponentialRampToValueAtTime(0.01, time + 0.4);
+
+  osc.connect(filter).connect(shaper).connect(gain).connect(dest);
+  osc.start(time);
+  osc.stop(time + 0.4);
+}
+
+function playCowbell(dest, time, velocity) {
+  const osc1 = audioCtx.createOscillator();
+  const osc2 = audioCtx.createOscillator();
+  osc1.type = "square";
+  osc2.type = "square";
+  osc1.frequency.value = 540;
+  osc2.frequency.value = 800;
+
+  const bandpass = audioCtx.createBiquadFilter();
+  bandpass.type = "bandpass";
+  bandpass.frequency.value = 1000;
+  bandpass.Q.value = 5;
+
+  const shaper = audioCtx.createWaveShaper();
+  shaper.curve = makeDistortionCurve(2);
+  shaper.oversample = "4x";
+
+  const amp = audioCtx.createGain();
+  amp.gain.setValueAtTime(0.5 * velocity, time);
+  amp.gain.exponentialRampToValueAtTime(0.01, time + 0.2);
+
+  osc1.connect(bandpass);
+  osc2.connect(bandpass);
+  bandpass.connect(shaper);
+  shaper.connect(amp);
+  amp.connect(dest);
+
+  osc1.start(time);
+  osc2.start(time);
+  osc1.stop(time + 0.2);
+  osc2.stop(time + 0.2);
 }
