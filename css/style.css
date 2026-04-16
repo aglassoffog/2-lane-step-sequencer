@@ -1,5 +1,5 @@
 body {
-  font-family: sans-serif; background: #111; color: #fff; font-size:12px;
+  font-family: sans-serif; background: #111; color: #fff; font-size:13px;
   overflow-y: auto;
 }
 
@@ -155,14 +155,6 @@ li span {
 .mixer-sliders span {
   padding-left: 10px;
 }
-/*
-.mixer-balance {
-  writing-mode: vertical-lr;
-  direction: rtl;
-  width: 30px;
-  height: 200px;
-}
-*/
 .mixer-balance {
   -webkit-appearance: none;
   writing-mode: vertical-lr;
