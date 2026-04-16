@@ -155,11 +155,34 @@ li span {
 .mixer-sliders span {
   padding-left: 10px;
 }
+/*
 .mixer-balance {
   writing-mode: vertical-lr;
   direction: rtl;
   width: 30px;
   height: 200px;
+}
+*/
+.mixer-balance {
+  -webkit-appearance: none;
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 30px;
+  height: 200px;
+  background: #1a1a1a;
+}
+.mixer-balance::-webkit-slider-runnable-track {
+  width: 12px;
+  background: #444;
+  border-radius: 6px;
+}
+.mixer-balance::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 28px;
+  height: 28px;
+  background: hsl(240, 60%, 70%);
+  border-radius: 50%;
+  margin-left: -8px;
 }
 
 
