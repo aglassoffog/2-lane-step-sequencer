@@ -148,15 +148,10 @@ li span {
   align-items: center;
   margin-bottom: 10px;
 }
-/*
-.mixer-sliders input {
-  height: 20px;
-}
-*/
 .mixer-sliders input {
   -webkit-appearance: none;
   height: 30px;
-  width: 200px;
+  width: 170px;
   background: #1a1a1a;
 }
 .mixer-sliders input::-webkit-slider-runnable-track {
@@ -172,13 +167,6 @@ li span {
   border-radius: 50%;
   margin-top: -8px;
 }
-
-
-
-
-
-
-
 .mixer-sliders span {
   padding-left: 10px;
 }
