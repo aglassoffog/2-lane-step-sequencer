@@ -239,6 +239,7 @@ li span {
 }
 #tabContents > div {
   padding: 8px;
+  min-width: 350px;
   min-height: 110dvh;
 }
 
