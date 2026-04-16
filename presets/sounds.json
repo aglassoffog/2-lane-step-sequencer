@@ -1,0 +1,28 @@
+{
+  "sound_HiHatSnareKick": {
+    "sounds": [
+      {
+        "type": 7
+      },
+      {
+        "type": 1
+      },
+      {
+        "type": 2
+      }
+    ]
+  },
+  "sound_OpHatSnareKick": {
+    "sounds": [
+      {
+        "type": 8
+      },
+      {
+        "type": 1
+      },
+      {
+        "type": 2
+      }
+    ]
+  }
+}
