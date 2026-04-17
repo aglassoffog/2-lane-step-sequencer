@@ -28,6 +28,8 @@ function playSound(dest, time, velocity, typeIndex) {
     playCowbell(dest, time, velocity);
   } else if (typeIndex === 13) {
     playRimshot(dest, time, velocity);
+  } else if (typeIndex === 14) {
+    playRide(dest, time, velocity);
   }
 }
 
@@ -230,7 +232,7 @@ function playCrash(dest, time, velocity) {
   shaper.curve = new Float32Array([ -1, -0.5, 0, 0.5, 1 ]);
 
   const gain = audioCtx.createGain();
-  gain.gain.setValueAtTime(0.4 * velocity, time);
+  gain.gain.setValueAtTime(0.3 * velocity, time);
   gain.gain.exponentialRampToValueAtTime(0.01, time + 2);
 
   noise.connect(band1).connect(gain);
@@ -361,4 +363,46 @@ function playRimshot(dest, time, velocity) {
   noise.stop(time + 0.3);
   osc.start(time);
   osc.stop(time + 0.3);
+}
+
+function playRide(dest, time, velocity) {
+  const freqs = [400, 540, 800, 1000, 1500, 2100];
+  const mix = audioCtx.createGain();
+
+  freqs.forEach(f => {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = "square";
+    osc.frequency.value = f;
+    gain.gain.value = 0.3;
+
+    osc.connect(gain);
+    gain.connect(mix);
+
+    osc.start(time);
+    osc.stop(time + 0.8);
+  });
+
+  const bandpass = audioCtx.createBiquadFilter();
+  bandpass.type = "bandpass";
+  bandpass.frequency.value = 9000;
+  bandpass.Q.value = 1;
+
+  const highpass = audioCtx.createBiquadFilter();
+  highpass.type = "highpass";
+  highpass.frequency.value = 7000;
+
+  const shaper = audioCtx.createWaveShaper();
+  shaper.curve = makeDistortionCurve(3);
+  shaper.oversample = "4x";
+
+  const amp = audioCtx.createGain();
+  amp.gain.setValueAtTime(0.5 * velocity, time);
+  amp.gain.exponentialRampToValueAtTime(0.001, time + 0.8);
+
+  mix.connect(bandpass);
+  bandpass.connect(highpass);
+  highpass.connect(amp);
+  amp.connect(shaper).connect(dest);
 }

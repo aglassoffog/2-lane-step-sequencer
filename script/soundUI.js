@@ -12,7 +12,8 @@ const soundNames = [
   "Noise2",
   "Sine",
   "Cowbell",
-  "Rimshot"
+  "Rimshot",
+  "Ride"
 ];
 
 function loadSound(seqIndex, trackIndex, typeIndex) {
