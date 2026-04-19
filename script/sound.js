@@ -30,6 +30,8 @@ function playSound(dest, time, velocity, type) {
     playRimshot(dest, time, velocity);
   } else if (type === "Ride") {
     playRide(dest, time, velocity);
+  } else if (type === "Pad") {
+    playPad(dest, time, velocity);
   }
 }
 
@@ -405,4 +407,33 @@ function playRide(dest, time, velocity) {
   bandpass.connect(highpass);
   highpass.connect(amp);
   amp.connect(shaper).connect(dest);
+}
+
+function playPad(dest, time, velocity) {
+  const osc1 = audioCtx.createOscillator();
+  const osc2 = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  const filter = audioCtx.createBiquadFilter();
+
+  osc1.type = "sawtooth";
+  osc2.type = "sawtooth";
+  osc1.detune.value = -10;
+  osc2.detune.value = 10;
+
+  filter.type = "lowpass";
+  filter.frequency.value = 800;
+
+  gain.gain.setValueAtTime(0, time);
+  gain.gain.linearRampToValueAtTime(0.3 * velocity, time + 0.2);
+  gain.gain.exponentialRampToValueAtTime(0.01, time + 1);
+
+  osc1.connect(filter);
+  osc2.connect(filter);
+  filter.connect(gain).connect(dest);
+
+  osc1.start(time);
+  osc2.start(time);
+
+  osc1.stop(time + 1);
+  osc2.stop(time + 1);
 }
