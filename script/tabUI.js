@@ -32,9 +32,14 @@ tabs.forEach(btn => {
 
 const panel = document.getElementById("right");
 const innerWidth = window.innerWidth;
-panelBtn.addEventListener("click", () => {
-  panel.classList.toggle("open");
-  const vv = window.visualViewport;
-  panel.style.right = (innerWidth - vv.width - vv.offsetLeft) + "px";
-  document.body.classList.toggle("no-scroll");
+document.addEventListener("click", (e) => {
+  if (e.target === panelBtn) {
+    panel.classList.toggle("open");
+    const vv = window.visualViewport;
+    panel.style.right = (innerWidth - vv.width - vv.offsetLeft) + "px";
+    document.body.classList.toggle("no-scroll");
+  } else if (!panel.contains(e.target)) {
+    panel.classList.remove("open");
+    document.body.classList.remove("no-scroll");
+  }
 });
