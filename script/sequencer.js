@@ -13,13 +13,16 @@ function stepDuration() {
 function scheduleStep(step, time) {
   patterns.forEach((pattern, seqIndex) => {
     if (pattern[0][step] > 0) {
-      playSound(seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0].type);
+      soundNames[sounds[seqIndex][0].Type].Play(
+        seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0]);
     }
     if (pattern[1][step] > 0) {
-      playSound(seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1].type);
+      soundNames[sounds[seqIndex][1].Type].Play(
+        seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1]);
     }
     if (pattern[2][step] > 0) {
-      playSound(seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2].type);
+      soundNames[sounds[seqIndex][2].Type].Play(
+        seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2]);
     }
   });
   highlightStep(step);
@@ -111,17 +114,20 @@ function scheduleStepHalf(step, time) {
       if (pattern[0][step] > 0 && (
         repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][1]
       )) {
-        playSound(seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0].type);
+        soundNames[sounds[seqIndex][0].Type].Play(
+          seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0]);
       }
       if (pattern[1][step] > 0 && (
         repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][2]
       )) {
-        playSound(seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1].type);
+        soundNames[sounds[seqIndex][1].Type].Play(
+          seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1]);
       }
       if (pattern[2][step] > 0 && (
         repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][3]
       )) {
-        playSound(seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2].type);
+        soundNames[sounds[seqIndex][2].Type].Play(
+          seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2]);
       }
     });
   }

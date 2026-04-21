@@ -12,7 +12,7 @@ function initSequencerUI() {
       sndBtn.textContent = "";
       sndBtn.classList.add("button", "seq"+(seqIndex+1), "track"+trackIndex);
       sndBtn.addEventListener("pointerdown", () => {
-        openSound(seqIndex);
+        openSound(seqIndex, trackIndex);
       });
       row.appendChild(sndBtn);
 
@@ -89,7 +89,7 @@ function updateUI(seqIndex) {
 
   rows.forEach((row, trackIndex) => {
     const btn = row.querySelector(":scope > .track" + trackIndex);
-    btn.textContent = sounds[seqIndex][trackIndex].type;
+    btn.textContent = sounds[seqIndex][trackIndex].Type;
 
     row.querySelectorAll(":scope > .step").forEach((cell, stepIndex) => {
       const velocity = patterns[seqIndex][trackIndex][stepIndex];

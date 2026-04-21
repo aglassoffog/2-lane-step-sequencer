@@ -31,13 +31,13 @@ let pitches = [[
 ]];
 
 let sounds = [[
-  {type: "Click"},
-  {type: "Snare"},
-  {type: "Kick"}
+  {Type: "Click", Envelope: {Attack: 0, Duration: 0.1}},
+  {Type: "Snare", Envelope: {Attack: 0, Duration: 0.2}},
+  {Type: "Kick", Envelope: {Attack: null, Duration: 0.1}}
 ],[
-  {type: "Click"},
-  {type: "Snare"},
-  {type: "Kick"}
+  {Type: "Click", Envelope: {Attack: 0, Duration: 0.1}},
+  {Type: "Snare", Envelope: {Attack: 0, Duration: 0.2}},
+  {Type: "Kick", Envelope: {Attack: null, Duration: 0.1}}
 ]];
 
 initSequencerUI();

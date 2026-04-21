@@ -8,7 +8,7 @@ let selectedSound = [
 
 const soundList = document.getElementById("soundList");
 
-function loadSoundList(seqIndex, name, soundIndex) {
+function loadSoundList(seqIndex, trackIndex, name, soundIndex) {
   const data = localStorage.getItem("sound_" + name);
   if (!data) return;
 
@@ -16,7 +16,9 @@ function loadSoundList(seqIndex, name, soundIndex) {
   currentSoundName.value = name;
 
   const parsed = JSON.parse(data);
-  sounds[seqIndex].splice(0, 3, ...parsed.sounds);
+  sounds[seqIndex][trackIndex].Type = parsed.sound.Type;
+  sounds[seqIndex][trackIndex].Envelope.Attack = parsed.sound.Envelope.Attack;
+  sounds[seqIndex][trackIndex].Envelope.Duration = parsed.sound.Envelope.Duration;
 
   selectedSound[seqIndex].soundIndex = soundIndex;
   selectedSound[seqIndex].active = true;
@@ -39,18 +41,14 @@ function updateSoundList() {
     currentSoundList.push(name);
     const li = document.createElement("li");
 
-    const loadBtn0 = document.createElement("button");
-    loadBtn0.classList.add("button", "seq1");
-    loadBtn0.textContent = "Load1";
-    loadBtn0.onclick = () => {
-      loadSoundList(0, name, i);
-    }
-
-    const loadBtn1 = document.createElement("button");
-    loadBtn1.classList.add("button", "seq2");
-    loadBtn1.textContent = "Load2";
-    loadBtn1.onclick = () => {
-      loadSoundList(1, name, i);
+    for(let s=0;s<2;s++){
+      for(let t=0;t<3;t++){
+        const loadBtn = document.createElement("button");
+        loadBtn.classList.add("button", "seq"+(s+1));
+        loadBtn.textContent = (t+1);
+        loadBtn.onclick = () => {loadSoundList(s, t, name, i)};
+        li.appendChild(loadBtn);
+      }
     }
 
     const nameSpan = document.createElement("span");
@@ -69,14 +67,12 @@ function updateSoundList() {
 
     const delBtn = document.createElement("button");
     delBtn.classList.add("button");
-    delBtn.textContent = "Delete";
+    delBtn.textContent = "D";
     delBtn.onclick = () => {
       localStorage.removeItem(key);
       updateSoundList();
     };
 
-    li.appendChild(loadBtn0);
-    li.appendChild(loadBtn1);
     li.appendChild(nameSpan);
     li.appendChild(delBtn);
 

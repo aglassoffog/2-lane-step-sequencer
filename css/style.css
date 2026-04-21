@@ -116,10 +116,6 @@ li {
   display: flex;
   align-items: center;
 }
-li button {
-  width: 60px;
-  flex-shrink: 0;
-}
 li span {
   width: 110px;
   margin: 0 8px;

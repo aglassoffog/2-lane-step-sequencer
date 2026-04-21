@@ -46,7 +46,6 @@
           Import
           <input type="file" class="hidden" onchange="importPatterns(this.files[0])">
         </label>
-        <span id="fileName" class="radio-span">No file</span>
         <br><br>
         <label class="form-label stg">Presets</label>
         <br>
@@ -140,12 +139,28 @@
         <br>
         <ul id="soundList"></ul>
         <br>
-        <button class="button" onclick="exportAllSounds()">Export All</button>
+        <button class="button" onclick="exportAllSound()">Export All</button>
         <label class="button">
           Import
-          <input type="file" class="hidden" onchange="importSounds(this.files[0])">
+          <input type="file" class="hidden" onchange="importSound(this.files[0])">
         </label>
-        <span id="fileName" class="radio-span">No file</span>
+        <br><br>
+        <label class="form-label stg">Presets</label>
+        <br>
+        <ul>
+          <li><a href="presets/sound.json" download>sound</a></li>
+        </ul>
+      </div>
+
+      <div id="soundsetTab" class="tabContent" style="display:none;">
+        <br>
+        <ul id="soundSetList"></ul>
+        <br>
+        <button class="button" onclick="exportAllSoundSet()">Export All</button>
+        <label class="button">
+          Import
+          <input type="file" class="hidden" onchange="importSoundSet(this.files[0])">
+        </label>
         <br><br>
         <label class="form-label stg">Presets</label>
         <br>
@@ -153,6 +168,7 @@
           <li><a href="presets/sounds.json" download>sounds</a></li>
         </ul>        
       </div>
+
     </div>
   </div>
 </div>
@@ -169,38 +185,18 @@
 
 <div id="soundPopup" class="popup hidden">
   <div class="popup-content">
-    <span id="soundTitle" class="form-label"></span>
     <input id="soundName" type="text" placeholder="sound name">
     <button id="soundSaveBtn" class="button">Save</button>
     <br><br>
     <div class="form">
-      <div id="sound-load1" class="form-row">
-        <label class="form-label"></label>
-        <div class="sound-load"></div>
-      </div>
-      <div id="sound-load2" class="form-row">
-        <label class="form-label"></label>
-        <div class="sound-load"></div>
-      </div>
-      <div id="sound-load3" class="form-row">
-        <label class="form-label"></label>
-        <div class="sound-load"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="soundPopup2" class="popup hidden">
-  <div class="popup-content">
-    <h3 id="soundTitle"></h3>
-    <div class="form">
+      <div id="sound-load" class="form-row"></div>
       <div class="form-row">
-        <label class="form-label seq1">Sequence1</label>
-        <div id="sound-load1" class="sound-load"></div>
+        <label class="form-label">Attack</label>
+        <input id="soundAttack" type="range" min="0" max="1" step="0.1">
       </div>
       <div class="form-row">
-        <label class="form-label seq2">Sequence2</label>
-        <div id="sound-load2" class="sound-load"></div>
+        <label class="form-label">Duration</label>
+        <input id="soundDuration" type="range" min="0.1" max="2" step="0.1">
       </div>
     </div>
   </div>
@@ -234,9 +230,12 @@
 <script src="script/settingUI.js"></script>
 <script src="script/patternUI.js"></script>
 <script src="script/pattern.js"></script>
+<script src="script/soundSetList.js"></script>
 <script src="script/soundList.js"></script>
-<script src="script/soundUI.js"></script>
+<script src="script/soundSnare.js"></script>
+<script src="script/soundClick.js"></script>
 <script src="script/sound.js"></script>
+<script src="script/soundUI.js"></script>
 <script src="script/mixer.js"></script>
 <script src="script/velocity.js"></script>
 <script src="script/main.js"></script>
