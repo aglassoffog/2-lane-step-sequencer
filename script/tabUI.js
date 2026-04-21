@@ -36,4 +36,5 @@ panelBtn.addEventListener("click", () => {
   panel.classList.toggle("open");
   const vv = window.visualViewport;
   panel.style.right = (innerWidth - vv.width - vv.offsetLeft) + "px";
+  document.body.classList.toggle("no-scroll");
 });
