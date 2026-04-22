@@ -24,7 +24,7 @@ function updatePatternList() {
     const loadBtn0 = document.createElement("button");
     loadBtn0.classList.add("button", "seq1");
     loadBtn0.textContent = "Load1";
-    loadBtn0.onclick = () => {
+    loadBtn0.onclick = (e) => {
       loadPattern(0, name, i);
     }
 
@@ -62,6 +62,7 @@ function updatePatternList() {
     li.appendChild(nameSpan);
     li.appendChild(delBtn);
 
+    // list.appendChild(loadBtn0);
     list.appendChild(li);
   });
 }

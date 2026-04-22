@@ -39,6 +39,8 @@ document.addEventListener("click", (e) => {
     const vv = window.visualViewport;
     panel.style.right = (innerWidth - vv.width - vv.offsetLeft) + "px";
     document.body.classList.toggle("no-scroll");
+  } else if (!document.body.contains(e.target)) {
+    // すでに削除済み場合は判定しない
   } else if (!panel.contains(e.target)) {
     panel.classList.remove("open");
     document.body.classList.remove("no-scroll");
