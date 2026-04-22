@@ -3,7 +3,7 @@ let isRunning = false;
 let isPlaying = false;
 let tempo = 120;
 let steps = 16;
-let currentStep = 0;
+let currentStep;
 let nextNoteTime = 0;
 let timerID;
 

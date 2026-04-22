@@ -1,15 +1,10 @@
 let sequenceMode = 0;
+let patternMode = 0;
 let currentSequence = 0;
 let currentPattern = 0;
 let isFirst = false;
 let currentRepeatShift = 0;
 
-// ステップ長（16分音符）
-function stepDuration() {
-  return (60 / tempo) / 4;
-}
-
-// スケジュール
 function scheduleStep(step, time) {
   patterns.forEach((pattern, seqIndex) => {
     if (pattern[0][step] > 0) {
@@ -24,46 +19,57 @@ function scheduleStep(step, time) {
       soundNames[sounds[seqIndex][2].Type].Play(
         seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2]);
     }
-    highlightStep(seqIndex, step);
   });
+  highlightStep(step);
 }
 
-// 次へ
+function stepDuration() {
+  return (60 / tempo) / 4;
+}
+
 function nextStep() {
+  if (sequenceMode === 0) {
+    return (currentStep + 1) % steps;
+  } else {
+    return (currentStep > 0) ? (currentStep - 1) : (steps - 1);
+  }
+}
+
+function nextStepTime() {
   nextNoteTime += stepDuration();
-  currentStep = (currentStep + 1) % steps;
+  currentStep = nextStep();
 }
 
 function selectPattern() {
-  if (currentStep === 0) {
-    if (sequenceMode === 0) {
+  if ((currentStep === 0 && sequenceMode === 0) || (currentStep === 15 && sequenceMode === 1)){
+    if (patternMode === 0) {
 
-    } else if (sequenceMode === 1) {
+    } else if (patternMode === 1) {
       if (currentPatternList.length <= currentPattern) {
         currentPattern = 0;
       }
       loadPattern(0, currentPatternList[currentPattern], currentPattern); 
       currentPattern++;
-    } else if (sequenceMode === 2) {
+    } else if (patternMode === 2) {
       if (currentPatternList.length <= currentPattern) {
         currentPattern = 0;
       }
       loadPattern(1, currentPatternList[currentPattern], currentPattern); 
       currentPattern++;
-    } else if (sequenceMode === 3) {
+    } else if (patternMode === 3) {
       if (currentPatternList.length <= currentPattern) {
         currentPattern = 0;
       }
       loadPattern(currentSequence, currentPatternList[currentPattern], currentPattern); 
       currentPattern++;
       currentSequence = currentSequence ^ 1;
-    } else if (sequenceMode === 4) {
+    } else if (patternMode === 4) {
       currentPattern = Math.floor(Math.random() * currentPatternList.length);
       loadPattern(0, currentPatternList[currentPattern], currentPattern);
-    } else if (sequenceMode === 5) {
+    } else if (patternMode === 5) {
       currentPattern = Math.floor(Math.random() * currentPatternList.length);
       loadPattern(1, currentPatternList[currentPattern], currentPattern); 
-    } else if (sequenceMode === 6) {
+    } else if (patternMode === 6) {
       currentPattern = Math.floor(Math.random() * currentPatternList.length);
       loadPattern(currentSequence, currentPatternList[currentPattern], currentPattern); 
       currentSequence = currentSequence ^ 1;
@@ -142,8 +148,8 @@ async function scheduler() {
       await selectRepeatShift();
     }
     await scheduleStep(currentStep, nextNoteTime);
-    scheduleStepHalf((currentStep + 1) % steps, nextNoteTime+stepDuration()/2);
-    nextStep();
+    await scheduleStepHalf(nextStep(), nextNoteTime+stepDuration()/2);
+    nextStepTime();
     if (repeatShiftMode === 2) {
       currentRepeatShift = (currentRepeatShift + 1) % 2;
     } else if (repeatShiftMode === 3) {
@@ -159,7 +165,11 @@ playBtn.addEventListener("pointerdown", async () => {
   }
   if (!isPlaying) {
     isFirst = true;
-    currentStep = 0;
+    if (sequenceMode === 1) {
+      currentStep = 15;
+    } else {
+      currentStep = 0;
+    }
     currentSequence = 0;
     currentPattern = 0;
     nextNoteTime = audioCtx.currentTime;

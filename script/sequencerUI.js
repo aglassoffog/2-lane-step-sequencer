@@ -73,12 +73,14 @@ function updateStepUI(el, velocity) {
   el.style.opacity = velocity > 0 ? velocity : 0.3;
 }
 
-function highlightStep(seqIndex, step) {
-  rows[seqIndex].forEach(row => {
-    row.querySelectorAll(":scope > .step").forEach((cell, i) => {
-      cell.classList.toggle("playing", i === step);
+function highlightStep(step) {
+  for(let s=0;s<2;s++){
+    rows[s].forEach(row => {
+      row.querySelectorAll(":scope > .step").forEach((cell, i) => {
+        cell.classList.toggle("playing", i === step);
+      });
     });
-  });
+  }
 }
 
 function updateUI(seqIndex) {
