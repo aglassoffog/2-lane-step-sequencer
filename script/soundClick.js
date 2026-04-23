@@ -154,7 +154,6 @@ function playRide(dest, time, velocity, sound, pitch) {
 }
 
 function playCrystal(dest, time, velocity, sound, pitch) {
-  const freq = 1040;
   const carrierOsc = audioCtx.createOscillator();
   const modOsc = audioCtx.createOscillator();
   const modGain = audioCtx.createGain();
@@ -163,6 +162,10 @@ function playCrystal(dest, time, velocity, sound, pitch) {
   carrierOsc.type = "sine";
   modOsc.type = "sine";
 
+  // const freq = 1040;
+  const base = 840;
+  const range = 400;
+  const freq = base + pitch * range;
   carrierOsc.frequency.value = freq;
   modOsc.frequency.value = freq * 2.7;
   modGain.gain.value = freq * 0.4;
