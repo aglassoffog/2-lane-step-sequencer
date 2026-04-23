@@ -6,11 +6,13 @@ let selectedPattern = [
   {patternIndex: null, active: false}
 ];
 
-const list = document.getElementById("patternList");
-
 function updatePatternList() {
-  list.innerHTML = "";
+  patternList.innerHTML = "";
   currentPatternList = [];
+  selectedPattern = [
+    {patternIndex: null, active: false},
+    {patternIndex: null, active: false}
+  ];
 
   Object.keys(localStorage)
     .filter(key => key.startsWith("pattern_" + keyword))
@@ -37,17 +39,6 @@ function updatePatternList() {
 
     const nameSpan = document.createElement("span");
     nameSpan.textContent = name;
-    if (i === selectedPattern[0].patternIndex) {
-      nameSpan.className = "seq1";
-    }
-    if (i === selectedPattern[1].patternIndex) {
-      nameSpan.className = "seq2";
-      if (selectedPattern[0].patternIndex === selectedPattern[1].patternIndex) {
-        if (selectedPattern[0].active) {
-          nameSpan.className = "seq1";
-        }
-      }
-    }
 
     const delBtn = document.createElement("button");
     delBtn.classList.add("button");
@@ -61,7 +52,7 @@ function updatePatternList() {
     li.appendChild(loadBtn1);
     li.appendChild(nameSpan);
     li.appendChild(delBtn);
-    list.appendChild(li);
+    patternList.appendChild(li);
   });
 }
 
@@ -74,3 +65,20 @@ searchInput.addEventListener("input", () => {
     updatePatternList();
   }, 100);
 });
+
+function updatePatternListSpan() {
+  patternList.querySelectorAll("span").forEach((span, i) => {
+    span.className = "";
+    if (i === selectedPattern[0].patternIndex) {
+      span.className = "seq1";
+    }
+    if (i === selectedPattern[1].patternIndex) {
+      span.className = "seq2";
+      if (selectedPattern[0].patternIndex === selectedPattern[1].patternIndex) {
+        if (selectedPattern[0].active) {
+          span.className = "seq1";
+        }
+      }
+    }
+  });
+}

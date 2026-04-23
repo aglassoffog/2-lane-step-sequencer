@@ -16,7 +16,7 @@ function loadPattern(seqIndex, name, patternIndex) {
   selectedPattern[seqIndex^1].active = false;
   
   updateUI(seqIndex);
-  updatePatternList();
+  updatePatternListSpan();
 }
 
 function savePattern(seqIndex) {
