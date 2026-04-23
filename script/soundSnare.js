@@ -69,15 +69,18 @@ function playBrush(dest, time, velocity, sound) {
   noise.stop(time + sound.Envelope.Attack + sound.Envelope.Duration + 0.2);
 }
 
-function playRimshot(dest, time, velocity, sound) {
+function playRimshot(dest, time, velocity, sound, pitch) {
   const noise = audioCtx.createBufferSource();
-  noise.buffer = noiseBuffer;
-
   const osc = audioCtx.createOscillator();
-  osc.type = "square";
-  osc.frequency.value = 1800;
-
   const mix = audioCtx.createGain();
+
+  const base = 1600;
+  const range = 400;
+  const freq = base + pitch * range;
+  noise.buffer = noiseBuffer;
+  osc.type = "square";
+  osc.frequency.value = freq;
+
   noise.connect(mix);
   osc.connect(mix);
 
