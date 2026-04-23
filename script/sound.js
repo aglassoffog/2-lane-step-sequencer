@@ -1,9 +1,12 @@
-function playKick(dest, time, velocity, sound) {
+function playKick(dest, time, velocity, sound, pitch) {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
 
-  osc.frequency.setValueAtTime(150, time);
-  osc.frequency.exponentialRampToValueAtTime(50, time + sound.Envelope.Duration);
+  const base = 130;
+  const range = 40;
+  const freq = base + pitch * range;
+  osc.frequency.setValueAtTime(freq, time);
+  osc.frequency.exponentialRampToValueAtTime(freq - 100, time + sound.Envelope.Duration);
 
   gain.gain.setValueAtTime(velocity, time);
   gain.gain.exponentialRampToValueAtTime(0.001, time + sound.Envelope.Duration);

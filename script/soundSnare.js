@@ -101,13 +101,16 @@ function playRimshot(dest, time, velocity, sound) {
   osc.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
 }
 
-function playCowbell(dest, time, velocity, sound) {
+function playCowbell(dest, time, velocity, sound, pitch) {
   const osc1 = audioCtx.createOscillator();
   const osc2 = audioCtx.createOscillator();
-  osc1.type = "square";
-  osc2.type = "square";
-  osc1.frequency.value = 540;
-  osc2.frequency.value = 800;
+
+  const base = 300;
+  const range = 500;
+  const freq = base + pitch * range;
+  osc1.type = osc2.type = "square";
+  osc1.frequency.value = freq;
+  osc2.frequency.value = freq + 260;
 
   const bandpass = audioCtx.createBiquadFilter();
   bandpass.type = "bandpass";
