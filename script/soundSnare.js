@@ -49,11 +49,16 @@ function playClap(dest, time, velocity, sound) {
   noise.stop(time + sound.Envelope.Attack + sound.Envelope.Duration + 0.2);
 }
 
-function playBrush(dest, time, velocity, sound) {
+function playBrush(dest, time, velocity, sound, pitch) {
   const noise = audioCtx.createBufferSource();
-  noise.buffer = noiseBuffer;
-
   const gain = audioCtx.createGain();
+
+  const base = 0;
+  const range = 2;
+  const freq = base + pitch * range;
+  noise.buffer = noiseBuffer;
+  noise.playbackRate.value = freq;
+
   const bursts = [0, 0.02, 0.04, 0.06];
   bursts.forEach(offset => {
     const t = time + offset;
