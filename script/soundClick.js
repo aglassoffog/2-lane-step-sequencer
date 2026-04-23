@@ -76,9 +76,13 @@ function playOpenHat(dest, time, velocity, sound, pitch) {
   noise.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
 }
 
-function playCrash(dest, time, velocity, sound) {
+function playCrash(dest, time, velocity, sound, pitch) {
   const noise = audioCtx.createBufferSource();
+  const base = 0;
+  const range = 2;
+  const freq = Math.max(base + pitch * range, 0.1);
   noise.buffer = noiseBuffer;
+  noise.playbackRate.value = freq;
 
   const band1 = createBand(4000);
   const band2 = createBand(7000);
