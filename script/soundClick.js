@@ -1,10 +1,13 @@
 
-function playClick(dest, time, velocity, sound) {
+function playClick(dest, time, velocity, sound, pitch) {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
 
+  const base = 7800;
+  const range = 400;
+  const freq = base + pitch * range;
   osc.type = "square";
-  osc.frequency.value = 8000;
+  osc.frequency.value = freq;
 
   gain.gain.setValueAtTime(0, time);
   gain.gain.linearRampToValueAtTime(0.4 * velocity, time + (0.1 * sound.Envelope.Attack));
@@ -15,9 +18,13 @@ function playClick(dest, time, velocity, sound) {
   osc.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
 }
 
-function playHiHat(dest, time, velocity, sound) {
+function playHiHat(dest, time, velocity, sound, pitch) {
   const noise = audioCtx.createBufferSource();
+  const base = 0;
+  const range = 2;
+  const freq = Math.max(base + pitch * range, 0.1);
   noise.buffer = noiseBuffer;
+  noise.playbackRate.value = freq;
 
   const band1 = createBand(4000);
   const band2 = createBand(7000);
@@ -40,9 +47,13 @@ function playHiHat(dest, time, velocity, sound) {
   noise.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
 }
 
-function playOpenHat(dest, time, velocity, sound) {
+function playOpenHat(dest, time, velocity, sound, pitch) {
   const noise = audioCtx.createBufferSource();
+  const base = 0;
+  const range = 2;
+  const freq = Math.max(base + pitch * range, 0.1);
   noise.buffer = noiseBuffer;
+  noise.playbackRate.value = freq;
 
   const band1 = createBand(4000);
   const band2 = createBand(7000);
