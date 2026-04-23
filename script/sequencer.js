@@ -9,15 +9,15 @@ function scheduleStep(step, time) {
   patterns.forEach((pattern, seqIndex) => {
     if (pattern[0][step] > 0) {
       soundNames[sounds[seqIndex][0].Type].Play(
-        seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0]);
+        seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0], pitches[seqIndex][0][step]);
     }
     if (pattern[1][step] > 0) {
       soundNames[sounds[seqIndex][1].Type].Play(
-        seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1]);
+        seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1], pitches[seqIndex][1][step]);
     }
     if (pattern[2][step] > 0) {
       soundNames[sounds[seqIndex][2].Type].Play(
-        seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2]);
+        seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2], pitches[seqIndex][2][step]);
     }
   });
   highlightStep(step);
@@ -116,26 +116,50 @@ function scheduleStepHalf(step, time) {
   if (repeatShiftMode === 1 ||
     (repeatShiftMode === 2 && currentRepeatShift === 1) ||
     (repeatShiftMode === 3 && currentRepeatShift === 3)) {
-    patterns.forEach((pattern, seqIndex) => {
-      if (pattern[0][step] > 0 && (
-        repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][1]
-      )) {
-        soundNames[sounds[seqIndex][0].Type].Play(
-          seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0]);
-      }
-      if (pattern[1][step] > 0 && (
-        repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][2]
-      )) {
-        soundNames[sounds[seqIndex][1].Type].Play(
-          seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1]);
-      }
-      if (pattern[2][step] > 0 && (
-        repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][3]
-      )) {
-        soundNames[sounds[seqIndex][2].Type].Play(
-          seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2]);
-      }
-    });
+
+    if (sequenceMode === 0) {
+      patterns.forEach((pattern, seqIndex) => {
+        if (pattern[0][step] > 0 && (
+          repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][1]
+        )) {
+          soundNames[sounds[seqIndex][0].Type].Play(
+            seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0], pitches[seqIndex][0][step]);
+        }
+        if (pattern[1][step] > 0 && (
+          repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][2]
+        )) {
+          soundNames[sounds[seqIndex][1].Type].Play(
+            seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1], pitches[seqIndex][1][step]);
+        }
+        if (pattern[2][step] > 0 && (
+          repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][3]
+        )) {
+          soundNames[sounds[seqIndex][2].Type].Play(
+            seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2], pitches[seqIndex][0][step]);
+        }
+      });
+    } else {
+      patterns.forEach((pattern, seqIndex) => {
+        if (pattern[0][step] > 0 && (
+          repeatShiftMap[seqIndex]["Right"][0] || repeatShiftMap[seqIndex]["Right"][1]
+        )) {
+          soundNames[sounds[seqIndex][0].Type].Play(
+            seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0], pitches[seqIndex][0][step]);
+        }
+        if (pattern[1][step] > 0 && (
+          repeatShiftMap[seqIndex]["Right"][0] || repeatShiftMap[seqIndex]["Right"][2]
+        )) {
+          soundNames[sounds[seqIndex][1].Type].Play(
+            seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1], pitches[seqIndex][1][step]);
+        }
+        if (pattern[2][step] > 0 && (
+          repeatShiftMap[seqIndex]["Right"][0] || repeatShiftMap[seqIndex]["Right"][3]
+        )) {
+          soundNames[sounds[seqIndex][2].Type].Play(
+            seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2], pitches[seqIndex][0][step]);
+        }
+      });
+    }
   }
 }
 

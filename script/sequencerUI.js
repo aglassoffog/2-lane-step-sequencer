@@ -18,19 +18,19 @@ function initSequencerUI() {
 
       const velBtn = document.createElement("button");
       velBtn.textContent = "V";
-      velBtn.classList.add("button", "seq"+(seqIndex+1), "group-end");
+      velBtn.classList.add("button", "seq"+(seqIndex+1));
       velBtn.addEventListener("pointerdown", () => {
         openVelocity(seqIndex, trackIndex);
       });
       row.appendChild(velBtn);
 
-      //const pitBtn = document.createElement("button");
-      //pitBtn.textContent = "P";
-      //pitBtn.classList.add("button", "seq"+(seqIndex+1), "group-end");
-      //pitBtn.addEventListener("pointerdown", () => {
-      //  openPitch(seqIndex, trackIndex);
-      //});
-      //row.appendChild(pitBtn);
+      const pitBtn = document.createElement("button");
+      pitBtn.textContent = "P";
+      pitBtn.classList.add("button", "seq"+(seqIndex+1), "group-end");
+      pitBtn.addEventListener("pointerdown", () => {
+        openPitch(seqIndex, trackIndex);
+      });
+      row.appendChild(pitBtn);
 
       track.forEach((_, stepIndex) => {
         const div = document.createElement("div");
@@ -42,20 +42,9 @@ function initSequencerUI() {
 
         div.addEventListener("pointerdown", () => {
           updateStep(pattern[trackIndex], stepIndex);
-          updateStepUI(div, pattern[trackIndex][stepIndex]);
+          updateStepUI(div, seqIndex, trackIndex, stepIndex);
         });
-/*
-        div.oncontextmenu = (e) => {
-          e.preventDefault();
 
-          let v = pattern[trackIndex][stepIndex] || 0;
-          v += 0.25;
-          if (v > 1) v = 0;
-
-          pattern[trackIndex][stepIndex] = v;
-          updateStep(pattern[trackIndex], stepIndex);
-        };
-*/
         row.appendChild(div);
       });
     })
@@ -68,16 +57,24 @@ function updateStep(track, stepIndex) {
   track[stepIndex] = track[stepIndex] > 0 ? 0 : 1;
 }
 
-function updateStepUI(el, velocity) {
-  el.classList.toggle("active", velocity > 0);
-  el.style.opacity = velocity > 0 ? velocity : 0.3;
+function updateStepUI(el, seqIndex, trackIndex, stepIndex) {
+  const velocity = patterns[seqIndex][trackIndex][stepIndex];
+  const pitch = pitches[seqIndex][trackIndex][stepIndex];
+  if (velocity > 0) {
+    el.classList.toggle("active", true);
+    el.style.opacity = velocity;
+    // el.style.background = `hsl(${100 + (pitch * 40)}, 100%, 50%)`;
+  } else {
+    el.classList.toggle("active", false);
+    el.style.opacity = 0.3;
+  }
 }
 
 function highlightStep(step) {
-  for(let s=0;s<2;s++){
-    rows[s].forEach(row => {
-      row.querySelectorAll(":scope > .step").forEach((cell, i) => {
-        cell.classList.toggle("playing", i === step);
+  for(let i=0;i<2;i++){
+    rows[i].forEach(row => {
+      row.querySelectorAll(":scope > .step").forEach((cell, s) => {
+        cell.classList.toggle("playing", s === step);
       });
     });
   }
@@ -89,8 +86,7 @@ function updateUI(seqIndex) {
     btn.textContent = sounds[seqIndex][trackIndex].Type;
 
     row.querySelectorAll(":scope > .step").forEach((cell, stepIndex) => {
-      const velocity = patterns[seqIndex][trackIndex][stepIndex];
-      updateStepUI(cell, velocity);
+      updateStepUI(cell, seqIndex, trackIndex, stepIndex);
     });
   });
 }

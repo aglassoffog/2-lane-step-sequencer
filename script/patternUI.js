@@ -61,8 +61,6 @@ function updatePatternList() {
     li.appendChild(loadBtn1);
     li.appendChild(nameSpan);
     li.appendChild(delBtn);
-
-    // list.appendChild(loadBtn0);
     list.appendChild(li);
   });
 }

@@ -136,7 +136,7 @@ function playCowbell(dest, time, velocity, sound) {
   osc2.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
 }
 
-function playNoise(dest, time, velocity, sound, pitchVal) {
+function playNoise(dest, time, velocity, sound, pitch) {
   const osc = audioCtx.createOscillator();
   const filter = audioCtx.createBiquadFilter();
   const gain = audioCtx.createGain();
@@ -144,14 +144,13 @@ function playNoise(dest, time, velocity, sound, pitchVal) {
   osc.type = "sawtooth";
   const base = 100;
   const range = 300;
-  // const freq = base + pitchVal * range;
-  const freq = base + Math.random() * range;
+  const freq = base + pitch * range;
+  // const freq = base + Math.random() * range;
 
   osc.frequency.setValueAtTime(freq, time);
   osc.frequency.linearRampToValueAtTime(freq * 5, time + 0.05);
   osc.frequency.linearRampToValueAtTime(freq, time + 0.2);
-  // osc.frequency.exponentialRampToValueAtTime(freq * (0.5 + Math.random()), time + 0.2);
-
+  
   filter.type = "highpass";
   filter.Q.value = 10;
   filter.frequency.setValueAtTime(1000, time);
@@ -167,7 +166,7 @@ function playNoise(dest, time, velocity, sound, pitchVal) {
   osc.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
 }
 
-function playNoise2(dest, time, velocity, sound) {
+function playNoise2(dest, time, velocity, sound, pitch) {
   const noise = audioCtx.createBufferSource();
   noise.buffer = noiseBuffer;
 
@@ -176,7 +175,8 @@ function playNoise2(dest, time, velocity, sound) {
   filter.Q.value = 20;
   const base = 2000;
   const range = 6000;
-  const freq = base + Math.random() * range;
+  const freq = base + pitch * range;
+  // const freq = base + Math.random() * range;
 
   filter.frequency.setValueAtTime(100, time);
   filter.frequency.exponentialRampToValueAtTime(freq, time + 0.05);
