@@ -3,7 +3,8 @@ const tabNames = [
   "Mixer",
   "Shift",
   "Sound",
-  "Setting"
+  "Setting",
+  "Copy"
 //  "SoundSet"
 ]
 const tab = document.getElementById("tabs");

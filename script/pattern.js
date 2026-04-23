@@ -7,6 +7,8 @@ function loadPattern(seqIndex, name, patternIndex) {
 
   const parsed = JSON.parse(data);
   patterns[seqIndex].splice(0, 3, ...parsed.patterns);
+  pitches[seqIndex].splice(0, 3, ...(parsed.pitches ||
+    [Array(16).fill(0.5), Array(16).fill(0.5), Array(16).fill(0.5)]));
   tempo = parsed.tempo || 120;
 
   selectedPattern[seqIndex].patternIndex = patternIndex;
@@ -23,6 +25,7 @@ function savePattern(seqIndex) {
 
   const data = {
     patterns: patterns[seqIndex],
+    pitches: pitches[seqIndex],
     tempo: tempo
   };
 
@@ -32,6 +35,7 @@ function savePattern(seqIndex) {
 
 function clearPattern(seqIndex) {
   patterns[seqIndex].forEach(track => track.fill(0));
+  pitches[seqIndex].forEach(track => track.fill(0.5));
   updateUI(seqIndex);
 }
 

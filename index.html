@@ -126,7 +126,7 @@
             <label class="radio-label">
               <input type="radio" name="repeatShiftMode" value="3">
               <span class="radio-span">1/4</span>
-              </label>
+            </label>
           </div>
         </div>
         <div class="form-row">
@@ -199,6 +199,20 @@
       </div>
     </div>
 
+    <div id="copyTab" class="tabContent" style="display:none;">
+      <br>
+      <div class="form">
+        <div class="form-row">
+          <label class="form-label seq1">Sequence1</label>
+          <div id="copy-seq1"></div>
+        </div>
+        <div class="form-row">
+          <label class="form-label seq2">Sequence2</label>
+          <div id="copy-seq2"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -234,10 +248,12 @@
 <script src="script/tabUI.js"></script>
 <script src="script/popup.js"></script>
 <script src="script/noise.js"></script>
-<script src="script/sequencer.js"></script>
-<script src="script/sequencerUI.js"></script>
 <script src="script/shift.js"></script>
 <script src="script/shiftUI.js"></script>
+<script src="script/copy.js"></script>
+<script src="script/copyUI.js"></script>
+<script src="script/sequencer.js"></script>
+<script src="script/sequencerUI.js"></script>
 <script src="script/settingUI.js"></script>
 <script src="script/patternUI.js"></script>
 <script src="script/pattern.js"></script>

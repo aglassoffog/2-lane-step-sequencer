@@ -44,4 +44,5 @@ initSequencerUI();
 initShiftUI();
 updatePatternList();
 updateSoundList();
+initCopyUI();
 tabs[0].click();
