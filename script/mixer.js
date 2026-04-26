@@ -8,7 +8,11 @@ async function initAudio() {
 
   masterGain = audioCtx.createGain();
   masterGain.gain.value = 0.8;
-  masterGain.connect(audioCtx.destination);
+  const destination = audioCtx.createMediaStreamDestination();
+  audioEl.srcObject = destination.stream;
+  audioEl.play();
+  masterGain.connect(destination);
+  // masterGain.connect(audioCtx.destination);
 
   mixGains = [
     audioCtx.createGain(),
