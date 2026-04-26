@@ -2,7 +2,7 @@ let masterGain;
 let mixGains;
 let seqGains;
 
-function initAudio() {
+async function initAudio() {
 
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -35,7 +35,7 @@ function initAudio() {
   });
 
   createNoiseBuffer();
-  audioCtx.resume();
+  await audioCtx.resume();
 }
 
 
