@@ -1,9 +1,13 @@
+const patternNames = [
+  document.getElementById("patternName1"),
+  document.getElementById("patternName2")
+]
+
 function loadPattern(seqIndex, name, patternIndex) {
   const data = localStorage.getItem("pattern_" + name);
   if (!data) return;
 
-  const patternName = document.getElementById("patternName"+(seqIndex+1));
-  patternName.value = name;
+  patternNames[seqIndex].value = name;
 
   const parsed = JSON.parse(data);
   patterns[seqIndex].splice(0, 3, ...parsed.patterns);
@@ -20,7 +24,7 @@ function loadPattern(seqIndex, name, patternIndex) {
 }
 
 function savePattern(seqIndex) {
-  const name = document.getElementById("patternName"+(seqIndex+1)).value.trim();
+  const name = patternNames[seqIndex].value.trim();
   if (!name) return alert("Please enter the pattern name.");
 
   const data = {
@@ -34,6 +38,7 @@ function savePattern(seqIndex) {
 }
 
 function clearPattern(seqIndex) {
+  patternNames[seqIndex].value = "";
   patterns[seqIndex].forEach(track => track.fill(0));
   pitches[seqIndex].forEach(track => track.fill(0.5));
   updateUI(seqIndex);
