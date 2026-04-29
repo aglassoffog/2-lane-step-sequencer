@@ -218,21 +218,14 @@ playBtn.addEventListener("click", async () => {
   }
   if (!isPlaying) {
     isFirst = true;
-    // if (sequenceMode === 1) {
-      actualSteps = [
-        [reverseTrack[0][0] ? 15 : 0,
-        reverseTrack[0][1] ? 15 : 0,
-        reverseTrack[0][2] ? 15 : 0],
-        [reverseTrack[1][0] ? 15 : 0,
-        reverseTrack[1][1] ? 15 : 0,
-        reverseTrack[1][2] ? 15 : 0]
-      ]
-    //} else {
-    //  actualSteps = [
-    //   [0,0,0],
-    //    [0,0,0]
-    //  ]
-    //}
+    actualSteps = [
+      [reverseTrack[0][0] ? 15 : 0,
+       reverseTrack[0][1] ? 15 : 0,
+       reverseTrack[0][2] ? 15 : 0],
+      [reverseTrack[1][0] ? 15 : 0,
+       reverseTrack[1][1] ? 15 : 0,
+       reverseTrack[1][2] ? 15 : 0]
+    ]
     currentStep = 0;
     currentSequence = 0;
     currentPattern = 0;

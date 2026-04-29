@@ -2,8 +2,9 @@ const tabNames = [
   "Pattern",
   "Mixer",
   "Shift",
-  "Sound",
   "Setting",
+  "Effect",
+  "Sound",
   "Copy"
 //  "SoundSet"
 ]

@@ -3,7 +3,7 @@ tempoBar.oninput = () => {
   updateSlidbar(tempoBar);
   tempoSpan.textContent = tempo;
 };
-updateSlidbar(tempoBar);
+// updateSlidbar(tempoBar);
 
 const reverseOptions = [
   "Sequence1 - 1", "Sequence1 - 2", "Sequence1 - 3",

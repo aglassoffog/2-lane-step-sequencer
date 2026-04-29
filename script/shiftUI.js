@@ -19,7 +19,7 @@ function initShiftUI() {
         button.onclick = () => {
           if (repeatShiftMode > 0) {
             repeatShiftMap[i][key][k] = !repeatShiftMap[i][key][k];
-            button.classList.toggle("shift", repeatShiftMap[i][key][k]);
+            button.classList.toggle("cnt", repeatShiftMap[i][key][k]);
           } else {
             if (i === 2) {
               shiftOptions[key](patterns[0], (k > 0) ? k-1 : null);
@@ -45,7 +45,7 @@ function initShiftUI() {
         button.onclick = () => {
           if (repeatShiftMode > 0) {
             repeatShiftMap[i][key][k] = !repeatShiftMap[i][key][k];
-            button.classList.toggle("shift", repeatShiftMap[i][key][k]);
+            button.classList.toggle("cnt", repeatShiftMap[i][key][k]);
           } else {
             if (i === 2) {
               shiftOptions2[key][1]((k > 0) ? k-1 : null);

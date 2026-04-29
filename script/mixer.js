@@ -12,7 +12,9 @@ async function initAudio() {
   audioEl.srcObject = destination.stream;
   audioEl.play();
   masterGain.connect(destination);
-  // masterGain.connect(audioCtx.destination);
+
+  connectEffect();
+  effect.output.connect(masterGain);
 
   mixGains = [
     audioCtx.createGain(),
@@ -26,7 +28,7 @@ async function initAudio() {
 
   mixGains.forEach(g => {
     g.gain.value = 0.5;
-    g.connect(masterGain);
+    g.connect(effect.input);
   });
 
   seqGains[0].forEach(g => {
@@ -43,7 +45,7 @@ async function initAudio() {
 }
 
 
-const mixerSliders = document.querySelectorAll(".mixer-sliders input");
+const mixerSliders = document.querySelectorAll(".form-sliders input");
 mixerSliders.forEach(bar => {
   updateSlidbar(bar);
 });
