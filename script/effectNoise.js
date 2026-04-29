@@ -33,26 +33,39 @@ function createNoise(){
 function setupNoise(){
   effectNoise = createNoise();
 
-  effectNoise.delay.delayTime.value = 0.01;
-  effectNoise.feedback.gain.value = 0.9;
+  effectNoise.delay.delayTime.value = parseFloat(noiseTime.value);
+  effectNoise.feedback.gain.value = parseFloat(noiseFeedback.value);
 
   effectNoise.wetGain.gain.value = 0;
   effectNoise.dryGain.gain.value = 1;
 }
 
 noiseConnect.addEventListener("click", () => {
+  if (!isRunning) return;
   const now = audioCtx.currentTime;
   noiseOn = !noiseOn;
   if (noiseOn) {
     effectNoise.wetGain.gain.setTargetAtTime(0.05, now, 0.01);
-    effectNoise.dryGain.gain.setTargetAtTime(1, now, 0.01);
   } else {
     effectNoise.wetGain.gain.setTargetAtTime(0, now, 0.01);
-    effectNoise.dryGain.gain.setTargetAtTime(1, now, 0.01);
   }
   noiseConnect.classList.toggle("cnt", noiseOn);
 });
 
+noiseTime.addEventListener("input", e => {
+  updateSlidbar(e.target);
+  if (!isRunning) return;
+  effectNoise.delay.delayTime.setTargetAtTime(
+    parseFloat(e.target.value),
+    audioCtx.currentTime,
+    0.01);
+});
+
 noiseFeedback.addEventListener("input", e => {
-  effectNoise.feedback.gain.setTargetAtTime(parseFloat(e.target.value), audioCtx.currentTime, 0.01);
+  updateSlidbar(e.target);
+  if (!isRunning) return;
+  effectNoise.feedback.gain.setTargetAtTime(
+    parseFloat(e.target.value),
+    audioCtx.currentTime,
+    0.01);
 });

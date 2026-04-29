@@ -27,15 +27,16 @@ function createFilter(){
 function setupFilter(){
   effectFilter = createFilter();
 
-  effectFilter.tone.type = "lowpass";
-  effectFilter.tone.frequency.value = "3000";
-  effectFilter.tone.Q.value = 10;
+  effectFilter.tone.type = filterType.value;
+  effectFilter.tone.frequency.value = parseInt(filterFreq.value);
+  effectFilter.tone.Q.value = parseFloat(filterQ.value);
 
   effectFilter.wetGain.gain.value = 0;
   effectFilter.dryGain.gain.value = 1;
 }
 
 filterConnect.addEventListener("click", () => {
+  if (!isRunning) return;
   const now = audioCtx.currentTime;
   filterOn = !filterOn;
   if (filterOn) {
@@ -49,6 +50,7 @@ filterConnect.addEventListener("click", () => {
 });
 
 filterType.addEventListener("change", e => {
+  if (!isRunning) return;
   effectFilter.tone.type = e.target.value;
 });
 
@@ -64,6 +66,7 @@ filterFreq.addEventListener("input", e => {
 
 filterQ.addEventListener("input", e => {
   updateSlidbar(e.target);
+  if (!isRunning) return;
   effectFilter.tone.Q.setTargetAtTime(
     parseFloat(e.target.value),
     audioCtx.currentTime,

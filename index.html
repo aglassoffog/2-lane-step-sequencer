@@ -207,12 +207,15 @@
           <button id="noiseConnect" class="button">Noise</button>
           <div>
             <div class="form-row2 form-sliders">
-              <span class="stg">Feedback</span>
+              <span class="stg">Time</span>
+              <input id="noiseTime" type="range" min="0.01" max="0.06" step="0.01" value="0.03">
+            </div>
+            <div class="form-row2 form-sliders">
+              <span class="stg">FBack</span>
               <input id="noiseFeedback" type="range" min="0.9" max="1" step="0.01" value="0.9">
             </div>
           </div>
         </div>
-
         <div class="form-row">
           <button id="filterConnect" class="button">Filter</button>
           <div>
@@ -234,7 +237,23 @@
             </div>
           </div>
         </div>
-
+        <div class="form-row">
+          <button id="delayConnect" class="button">Delay</button>
+          <div>
+            <div class="form-row2 form-sliders">
+              <span class="stg">Time</span>
+              <input id="delayTime" type="range" min="0" max="2" step="0.01" value="0.3">
+            </div>
+            <div class="form-row2 form-sliders">
+              <span class="stg">FBack</span>
+              <input id="delayFeedback" type="range" min="0" max="0.85" step="0.01" value="0.35">
+            </div>
+            <div class="form-row2 form-sliders">
+              <span class="stg">Send</span>
+              <input id="delaySend" type="range" min="0" max="1" step="0.01" value="0.4">
+            </div>
+          </div>
+        </div>
 
 
       </div>
@@ -294,6 +313,7 @@
 <script src="script/noise.js"></script>
 <script src="script/effectNoise.js"></script>
 <script src="script/effectFilter.js"></script>
+<script src="script/effectDelay.js"></script>
 <script src="script/effect.js"></script>
 <script src="script/shift.js"></script>
 <script src="script/shiftUI.js"></script>
