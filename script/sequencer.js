@@ -1,4 +1,19 @@
+let isRunning = false;
+let isPlaying = false;
+let tempo = 120;
+let steps = 16;
+let currentStep;
+let actualSteps = [
+  [0,0,0],
+  [0,0,0]
+];
+let nextNoteTime = 0;
+let timerID;
 let sequenceMode = 0;
+let reverseTrack = [
+  [false,false,false],
+  [false,false,false]
+];
 let patternMode = 0;
 let currentSequence = 0;
 let currentPattern = 0;
@@ -7,17 +22,29 @@ let currentRepeatShift = 0;
 
 function scheduleStep(step, time) {
   patterns.forEach((pattern, seqIndex) => {
-    if (pattern[0][step] > 0) {
+    if (pattern[0][step[seqIndex][0]] > 0) {
       soundNames[sounds[seqIndex][0].Type].Play(
-        seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0], pitches[seqIndex][0][step]);
+        seqGains[seqIndex][0],
+        time,
+        pattern[0][step[seqIndex][0]],
+        sounds[seqIndex][0],
+        pitches[seqIndex][0][step[seqIndex][0]]);
     }
-    if (pattern[1][step] > 0) {
+    if (pattern[1][step[seqIndex][1]] > 0) {
       soundNames[sounds[seqIndex][1].Type].Play(
-        seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1], pitches[seqIndex][1][step]);
+        seqGains[seqIndex][1],
+        time,
+        pattern[1][step[seqIndex][1]],
+        sounds[seqIndex][1],
+        pitches[seqIndex][1][step[seqIndex][1]]);
     }
-    if (pattern[2][step] > 0) {
+    if (pattern[2][step[seqIndex][2]] > 0) {
       soundNames[sounds[seqIndex][2].Type].Play(
-        seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2], pitches[seqIndex][2][step]);
+        seqGains[seqIndex][2],
+        time,
+        pattern[2][step[seqIndex][2]],
+        sounds[seqIndex][2],
+        pitches[seqIndex][2][step[seqIndex][2]]);
     }
   });
   highlightStep(step);
@@ -28,20 +55,29 @@ function stepDuration() {
 }
 
 function nextStep() {
-  if (sequenceMode === 0) {
-    return (currentStep + 1) % steps;
-  } else {
-    return (currentStep > 0) ? (currentStep - 1) : (steps - 1);
-  }
+  return (currentStep + 1) % steps;
+}
+
+function nextActualStep() {
+  const res = structuredClone(actualSteps);
+  res.forEach((r, i) => {
+    r.forEach((step, s) => {
+      res[i][s] = reverseTrack[i][s]
+        ? (step > 0 ? (step - 1) : steps - 1)
+        : (step + 1) % steps;
+    });
+  });
+  return res;
 }
 
 function nextStepTime() {
   nextNoteTime += stepDuration();
   currentStep = nextStep();
+  actualSteps = nextActualStep();
 }
 
 function selectPattern() {
-  if ((currentStep === 0 && sequenceMode === 0) || (currentStep === 15 && sequenceMode === 1)){
+  if ((currentStep === 0)){
     if (patternMode === 0) {
 
     } else if (patternMode === 1) {
@@ -115,51 +151,43 @@ function selectRepeatShift() {
 function scheduleStepHalf(step, time) {
   if (repeatShiftMode === 1 ||
     (repeatShiftMode === 2 && currentRepeatShift === 1) ||
-    (repeatShiftMode === 3 && currentRepeatShift === 3)) {
-
-    if (sequenceMode === 0) {
-      patterns.forEach((pattern, seqIndex) => {
-        if (pattern[0][step] > 0 && (
-          repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][1]
-        )) {
-          soundNames[sounds[seqIndex][0].Type].Play(
-            seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0], pitches[seqIndex][0][step]);
-        }
-        if (pattern[1][step] > 0 && (
-          repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][2]
-        )) {
-          soundNames[sounds[seqIndex][1].Type].Play(
-            seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1], pitches[seqIndex][1][step]);
-        }
-        if (pattern[2][step] > 0 && (
-          repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][3]
-        )) {
-          soundNames[sounds[seqIndex][2].Type].Play(
-            seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2], pitches[seqIndex][0][step]);
-        }
-      });
-    } else {
-      patterns.forEach((pattern, seqIndex) => {
-        if (pattern[0][step] > 0 && (
-          repeatShiftMap[seqIndex]["Right"][0] || repeatShiftMap[seqIndex]["Right"][1]
-        )) {
-          soundNames[sounds[seqIndex][0].Type].Play(
-            seqGains[seqIndex][0], time, pattern[0][step], sounds[seqIndex][0], pitches[seqIndex][0][step]);
-        }
-        if (pattern[1][step] > 0 && (
-          repeatShiftMap[seqIndex]["Right"][0] || repeatShiftMap[seqIndex]["Right"][2]
-        )) {
-          soundNames[sounds[seqIndex][1].Type].Play(
-            seqGains[seqIndex][1], time, pattern[1][step], sounds[seqIndex][1], pitches[seqIndex][1][step]);
-        }
-        if (pattern[2][step] > 0 && (
-          repeatShiftMap[seqIndex]["Right"][0] || repeatShiftMap[seqIndex]["Right"][3]
-        )) {
-          soundNames[sounds[seqIndex][2].Type].Play(
-            seqGains[seqIndex][2], time, pattern[2][step], sounds[seqIndex][2], pitches[seqIndex][0][step]);
-        }
-      });
-    }
+    (repeatShiftMode === 3 && currentRepeatShift === 3))
+  {
+    patterns.forEach((pattern, seqIndex) => {
+      if (pattern[0][step[seqIndex][0]] > 0 &&
+        ((!reverseTrack[seqIndex][0] && (repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][1])) ||
+         (reverseTrack[seqIndex][0] && (repeatShiftMap[seqIndex]["Right"][0] || repeatShiftMap[seqIndex]["Right"][1])))
+      ) {
+        soundNames[sounds[seqIndex][0].Type].Play(
+          seqGains[seqIndex][0],
+          time,
+          pattern[0][step[seqIndex][0]],
+          sounds[seqIndex][0],
+          pitches[seqIndex][0][step[seqIndex][0]]);
+      }
+      if (pattern[1][step[seqIndex][1]] > 0 &&
+        ((!reverseTrack[seqIndex][1] && (repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][2])) ||
+         (reverseTrack[seqIndex][1] && (repeatShiftMap[seqIndex]["Right"][0] || repeatShiftMap[seqIndex]["Right"][2])))
+      ) {
+        soundNames[sounds[seqIndex][1].Type].Play(
+          seqGains[seqIndex][1],
+          time,
+          pattern[1][step[seqIndex][1]],
+          sounds[seqIndex][1],
+          pitches[seqIndex][1][step[seqIndex][1]]);
+      }
+      if (pattern[2][step[seqIndex][2]] > 0 &&
+        ((!reverseTrack[seqIndex][2] && (repeatShiftMap[seqIndex]["Left"][0] || repeatShiftMap[seqIndex]["Left"][3])) ||
+         (reverseTrack[seqIndex][2] && (repeatShiftMap[seqIndex]["Right"][0] || repeatShiftMap[seqIndex]["Right"][3])))
+      ) {
+        soundNames[sounds[seqIndex][2].Type].Play(
+          seqGains[seqIndex][2],
+          time,
+          pattern[2][step[seqIndex][2]],
+          sounds[seqIndex][2],
+          pitches[seqIndex][2][step[seqIndex][2]]);
+      }
+    });
   }
 }
 
@@ -171,9 +199,10 @@ async function scheduler() {
     } else {
       await selectRepeatShift();
     }
-    await scheduleStep(currentStep, nextNoteTime);
-    await scheduleStepHalf(nextStep(), nextNoteTime+stepDuration()/2);
+    await scheduleStep(actualSteps, nextNoteTime);
+    await scheduleStepHalf(nextActualStep(), nextNoteTime+stepDuration()/2);
     nextStepTime();
+
     if (repeatShiftMode === 2) {
       currentRepeatShift = (currentRepeatShift + 1) % 2;
     } else if (repeatShiftMode === 3) {
@@ -189,16 +218,27 @@ playBtn.addEventListener("click", async () => {
   }
   if (!isPlaying) {
     isFirst = true;
-    if (sequenceMode === 1) {
-      currentStep = 15;
-    } else {
-      currentStep = 0;
-    }
+    // if (sequenceMode === 1) {
+      actualSteps = [
+        [reverseTrack[0][0] ? 15 : 0,
+        reverseTrack[0][1] ? 15 : 0,
+        reverseTrack[0][2] ? 15 : 0],
+        [reverseTrack[1][0] ? 15 : 0,
+        reverseTrack[1][1] ? 15 : 0,
+        reverseTrack[1][2] ? 15 : 0]
+      ]
+    //} else {
+    //  actualSteps = [
+    //   [0,0,0],
+    //    [0,0,0]
+    //  ]
+    //}
+    currentStep = 0;
     currentSequence = 0;
     currentPattern = 0;
     nextNoteTime = audioCtx.currentTime;
     timerID = setInterval(scheduler, lookahead);
-    highlightStep(currentStep);
+    highlightStep(actualSteps);
   } else {
     clearInterval(timerID);
   }

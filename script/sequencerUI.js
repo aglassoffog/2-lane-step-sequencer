@@ -72,9 +72,9 @@ function updateStepUI(el, seqIndex, trackIndex, stepIndex) {
 
 function highlightStep(step) {
   for(let i=0;i<2;i++){
-    rows[i].forEach(row => {
+    rows[i].forEach((row, trackIndex) => {
       row.querySelectorAll(":scope > .step").forEach((cell, s) => {
-        cell.classList.toggle("playing", s === step);
+        cell.classList.toggle("playing", s === step[i][trackIndex]);
       });
     });
   }

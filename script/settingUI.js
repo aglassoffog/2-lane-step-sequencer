@@ -5,8 +5,9 @@ tempoBar.oninput = () => {
 };
 updateSlidbar(tempoBar);
 
-const sequenceOptions = [
-  "Forward", "Reverse"
+const reverseOptions = [
+  "Sequence1 - 1", "Sequence1 - 2", "Sequence1 - 3",
+  "Sequence2 - 1", "Sequence2 - 2", "Sequence2 - 3"
 ];
 
 const patternOptions = [
@@ -17,29 +18,35 @@ const patternOptions = [
   "alternate in randowm"
 ];
 
-sequenceOptions.forEach((mode, i) => {
+reverseOptions.forEach((mode, i) => {
   const label = document.createElement("label");
-  const radio = document.createElement("input");
+  const check = document.createElement("input");
   const text = document.createElement("span");
   label.classList.add("radio-label");
   text.textContent = mode;
   text.classList.add("radio-span");
-  radio.type = "radio";
-  radio.name = "sequenceMode";
-  radio.value = i;
-  radio.addEventListener("change", () => {
-    if (radio.checked) {
-      sequenceMode = parseInt(radio.value);
-      currentStep = nextStep();
-      currentStep = nextStep();
+  check.type = "checkbox";
+  check.addEventListener("change", () => {
+    if (i < 3) {
+      reverseTrack[0][i] = check.checked;
+      actualSteps[0][i] = nextActualStep()[0][i];
+      actualSteps[0][i] = nextActualStep()[0][i];
+    } else {
+      reverseTrack[1][i-3] = check.checked;
+      actualSteps[1][i-3] = nextActualStep()[1][i-3];
+      actualSteps[1][i-3] = nextActualStep()[1][i-3];
     }
   });
 
-  if (i === sequenceMode) radio.checked = true;
+  if (i < 3) {
+    check.checked = reverseTrack[0][i];
+  } else {
+    check.checked = reverseTrack[1][i-3];
+  }
 
-  label.appendChild(radio);
+  label.appendChild(check);
   label.appendChild(text);
-  sequenceModes.appendChild(label);
+  reverseModes.appendChild(label);
 });
 
 patternOptions.forEach((mode, i) => {
