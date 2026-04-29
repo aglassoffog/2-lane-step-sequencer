@@ -25,38 +25,37 @@ function createFilter(){
 }
 
 function setupFilter(){
-  filter = createFilter();
+  effectFilter = createFilter();
 
-  filter.tone.type = "lowpass";
-  filter.tone.frequency.value = "3000";
-  filter.tone.Q.value = 10;
+  effectFilter.tone.type = "lowpass";
+  effectFilter.tone.frequency.value = "3000";
+  effectFilter.tone.Q.value = 10;
 
-  filter.wetGain.gain.value = 0;
-  filter.dryGain.gain.value = 1;
-
+  effectFilter.wetGain.gain.value = 0;
+  effectFilter.dryGain.gain.value = 1;
 }
 
 filterConnect.addEventListener("click", () => {
   const now = audioCtx.currentTime;
   filterOn = !filterOn;
   if (filterOn) {
-    filter.wetGain.gain.setTargetAtTime(1, now, 0.01);
-    filter.dryGain.gain.setTargetAtTime(0, now, 0.01);
+    effectFilter.wetGain.gain.setTargetAtTime(1, now, 0.01);
+    effectFilter.dryGain.gain.setTargetAtTime(0, now, 0.01);
   } else {
-    filter.wetGain.gain.setTargetAtTime(0, now, 0.01);
-    filter.dryGain.gain.setTargetAtTime(1, now, 0.01);
+    effectFilter.wetGain.gain.setTargetAtTime(0, now, 0.01);
+    effectFilter.dryGain.gain.setTargetAtTime(1, now, 0.01);
   }
   filterConnect.classList.toggle("cnt", filterOn);
 });
 
 filterType.addEventListener("change", e => {
-  filter.tone.type = e.target.value;
+  effectFilter.tone.type = e.target.value;
 });
 
 filterFreq.addEventListener("input", e => {
   updateSlidbar(e.target);
   if (!isRunning) return;
-  filter.tone.frequency.setTargetAtTime(
+  effectFilter.tone.frequency.setTargetAtTime(
     parseInt(e.target.value),
     audioCtx.currentTime,
     0.01
@@ -65,7 +64,7 @@ filterFreq.addEventListener("input", e => {
 
 filterQ.addEventListener("input", e => {
   updateSlidbar(e.target);
-  filter.tone.Q.setTargetAtTime(
+  effectFilter.tone.Q.setTargetAtTime(
     parseFloat(e.target.value),
     audioCtx.currentTime,
     0.01

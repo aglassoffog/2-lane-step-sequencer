@@ -1,6 +1,6 @@
 let effect;
-let noise;
-let filter;
+let effectNoise;
+let effectFilter;
 
 
 function createEffect() {
@@ -17,9 +17,9 @@ function connectEffect() {
   setupNoise();
   setupFilter();
 
-  effect.input.connect(noise.input);
-  noise.output.connect(filter.input);
-  filter.output.connect(effect.output);
+  effect.input.connect(effectNoise.input);
+  effectNoise.output.connect(effectFilter.input);
+  effectFilter.output.connect(effect.output);
 
 
 }

@@ -1,14 +1,20 @@
+let noiseOn = false;
+
 function createNoise(){
   const input = audioCtx.createGain();
   const dryGain = audioCtx.createGain();
   const wetGain = audioCtx.createGain();
-  const tone = audioCtx.createBiquadFilter();
+  const noise = audioCtx.createBufferSource();
+  const delay = audioCtx.createDelay();
+  const feedback = audioCtx.createGain();
   const output = audioCtx.createGain();
 
   input.connect(dryGain);
-  input.connect(tone);
+  input.connect(delay);
 
-  tone.connect(wetGain);
+  delay.connect(feedback);
+  feedback.connect(delay);
+  delay.connect(wetGain);
 
   dryGain.connect(output);
   wetGain.connect(output);
@@ -16,29 +22,37 @@ function createNoise(){
   return {
     input,
     dryGain,
-    tone,
+    noise,
+    delay,
+    feedback,
     wetGain,
     output
   }
 }
 
 function setupNoise(){
-  noise = createNoise();
+  effectNoise = createNoise();
 
-  noise.wetGain.gain.value = 0;
-  noise.dryGain.gain.value = 1;
+  effectNoise.delay.delayTime.value = 0.01;
+  effectNoise.feedback.gain.value = 0.9;
 
+  effectNoise.wetGain.gain.value = 0;
+  effectNoise.dryGain.gain.value = 1;
 }
 
-/*
-noiseConnect.addEventListener("change", () => {
+noiseConnect.addEventListener("click", () => {
   const now = audioCtx.currentTime;
-  if (noiseConnect.checked) {
-    noise.wetGain.gain.setTargetAtTime(1, now, 0.01);
-    noise.dryGain.gain.setTargetAtTime(0, now, 0.01);
+  noiseOn = !noiseOn;
+  if (noiseOn) {
+    effectNoise.wetGain.gain.setTargetAtTime(0.05, now, 0.01);
+    effectNoise.dryGain.gain.setTargetAtTime(1, now, 0.01);
   } else {
-    noise.wetGain.gain.setTargetAtTime(0, now, 0.01);
-    noise.dryGain.gain.setTargetAtTime(1, now, 0.01);
+    effectNoise.wetGain.gain.setTargetAtTime(0, now, 0.01);
+    effectNoise.dryGain.gain.setTargetAtTime(1, now, 0.01);
   }
+  noiseConnect.classList.toggle("cnt", noiseOn);
 });
-*/
+
+noiseFeedback.addEventListener("input", e => {
+  effectNoise.feedback.gain.setTargetAtTime(parseFloat(e.target.value), audioCtx.currentTime, 0.01);
+});

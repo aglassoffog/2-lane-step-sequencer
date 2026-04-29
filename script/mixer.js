@@ -44,12 +44,6 @@ async function initAudio() {
   await audioCtx.resume();
 }
 
-
-const mixerSliders = document.querySelectorAll(".form-sliders input");
-mixerSliders.forEach(bar => {
-  updateSlidbar(bar);
-});
-
 function setVolume(seqIndex, trackIndex, bar) {
   updateSlidbar(bar);
   if (!isRunning) return;

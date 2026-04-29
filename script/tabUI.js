@@ -58,3 +58,7 @@ function updateSlidbar(bar) {
   const percent = (bar.value - bar.min) / (bar.max - bar.min) * 100;
   bar.style.setProperty("--value", percent + "%");
 }
+
+document.querySelectorAll(".form-sliders input").forEach(bar => {
+  updateSlidbar(bar);
+});
