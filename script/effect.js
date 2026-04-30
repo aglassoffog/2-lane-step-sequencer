@@ -2,6 +2,7 @@ let effect;
 let effectNoise;
 let effectFilter;
 let effectDelay;
+let effectReverb;
 
 function createEffect() {
   const input = audioCtx.createGain();
@@ -17,11 +18,13 @@ function connectEffect() {
   setupNoise();
   setupFilter();
   setupDelay();
+  setupReverb();
 
   effect.input.connect(effectNoise.input);
   effectNoise.output.connect(effectFilter.input);
   effectFilter.output.connect(effectDelay.input);
-  effectDelay.output.connect(effect.output);
+  effectDelay.output.connect(effectReverb.input);
+  effectReverb.output.connect(effect.output);
 
 
 }
