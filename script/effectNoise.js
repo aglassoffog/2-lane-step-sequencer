@@ -4,16 +4,19 @@ function createNoise(){
   const input = audioCtx.createGain();
   const dryGain = audioCtx.createGain();
   const wetGain = audioCtx.createGain();
-  const noise = audioCtx.createBufferSource();
   const delay = audioCtx.createDelay();
   const feedback = audioCtx.createGain();
+  // const filter = audioCtx.createBiquadFilter();
+  // const shaper = audioCtx.createWaveShaper();
   const output = audioCtx.createGain();
 
   input.connect(dryGain);
   input.connect(delay);
 
-  delay.connect(feedback);
-  feedback.connect(delay);
+  delay.connect(feedback).connect(delay);
+
+  // shaper.connect(filter);
+  // filter.connect(delay);
   delay.connect(wetGain);
 
   dryGain.connect(output);
@@ -22,9 +25,10 @@ function createNoise(){
   return {
     input,
     dryGain,
-    noise,
     delay,
     feedback,
+    // filter,
+    // shaper,
     wetGain,
     output
   }
@@ -35,6 +39,10 @@ function setupNoise(){
 
   effectNoise.delay.delayTime.value = parseFloat(noiseTime.value);
   effectNoise.feedback.gain.value = parseFloat(noiseFeedback.value);
+  // effectNoise.filter.type = "highpass";
+  // effectNoise.filter.frequency.value = 1000;
+  // effectNoise.shaper.curve = makeDistortionCurve(10);
+  // effectNoise.shaper.oversample = "4x";
 
   effectNoise.wetGain.gain.value = 0;
   effectNoise.dryGain.gain.value = 1;

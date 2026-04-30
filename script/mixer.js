@@ -41,6 +41,8 @@ async function initAudio() {
   });
 
   createNoiseBuffer();
+  createPinkNoiseBuffer();
+  createBrownNoise();
   await audioCtx.resume();
 }
 
