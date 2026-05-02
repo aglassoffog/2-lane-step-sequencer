@@ -63,11 +63,22 @@ function updateStepUI(el, seqIndex, trackIndex, stepIndex) {
   if (velocity > 0) {
     el.classList.toggle("active", true);
     el.style.opacity = velocity;
-    // el.style.background = `hsl(${100 + (pitch * 40)}, 100%, 50%)`;
+    if (stepIndex > length[seqIndex][trackIndex] - 1) {
+      // el.style.background = `hsl(${100 + (pitch * 40)}, 100%, 50%)`;
+      el.style.background = "hsl(80, 60%, 20%)";
+    } else {
+      el.style.background = "hsl(120, 100%, 50%)";
+    }
   } else {
     el.classList.toggle("active", false);
-    el.style.opacity = 0.3;
+    el.style.background = "#333";
+    if (stepIndex > length[seqIndex][trackIndex] - 1) {
+      el.style.opacity = 0.15;
+    } else {
+      el.style.opacity = 0.3;
+    }
   }
+
 }
 
 function highlightStep(step) {

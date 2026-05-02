@@ -3,11 +3,14 @@ tempoBar.oninput = () => {
   updateSlidbar(tempoBar);
   tempoSpan.textContent = tempo;
 };
-// updateSlidbar(tempoBar);
 
-const reverseOptions = [
-  "Sequence1 - 1", "Sequence1 - 2", "Sequence1 - 3",
-  "Sequence2 - 1", "Sequence2 - 2", "Sequence2 - 3"
+const sequenceOptions = [
+  "→", "←", "←→"
+];
+
+const lengthOptions = [
+  1, 2, 3, 4, 5, 6, 7, 8,
+  9, 10, 11, 12, 13, 14, 15, 16
 ];
 
 const patternOptions = [
@@ -18,36 +21,52 @@ const patternOptions = [
   "alternate in randowm"
 ];
 
-reverseOptions.forEach((mode, i) => {
-  const label = document.createElement("label");
-  const check = document.createElement("input");
-  const text = document.createElement("span");
-  label.classList.add("radio-label");
-  text.textContent = mode;
-  text.classList.add("radio-span");
-  check.type = "checkbox";
-  check.addEventListener("change", () => {
-    if (i < 3) {
-      reverseTrack[0][i] = check.checked;
-      actualSteps[0][i] = nextActualStep()[0][i];
-      actualSteps[0][i] = nextActualStep()[0][i];
-    } else {
-      reverseTrack[1][i-3] = check.checked;
-      actualSteps[1][i-3] = nextActualStep()[1][i-3];
-      actualSteps[1][i-3] = nextActualStep()[1][i-3];
-    }
-  });
+for(let s=0;s<2;s++){
+  for(let t=0;t<3;t++){
+    const span = document.createElement("span");
+    span.textContent = t+1;
+    span.classList.add("seq"+(s+1));
+    sequenceModes.appendChild(span);
 
-  if (i < 3) {
-    check.checked = reverseTrack[0][i];
-  } else {
-    check.checked = reverseTrack[1][i-3];
+    sequenceOptions.forEach((mode, i) => {
+
+      const label = document.createElement("label");
+      const radio = document.createElement("input");
+      const text = document.createElement("span");
+      label.classList.add("radio-label");
+      text.textContent = mode;
+      text.classList.add("radio-span");
+      radio.type = "radio";
+      radio.name = "sequenceMode"+s+t;
+      radio.value = i;
+      radio.addEventListener("change", () => {
+        if (radio.checked) {
+          sequenceMode[s][t] = parseInt(radio.value);
+        }
+      });
+
+      if (i === sequenceMode[s][t]) radio.checked = true;
+
+      label.appendChild(radio);
+      label.appendChild(text);
+      sequenceModes.appendChild(label);
+    });
+
+    const select = document.createElement("select");
+    lengthOptions.forEach(len => {
+      const option = document.createElement("option");
+      option.value = len;
+      option.textContent = len;
+      select.appendChild(option);
+    });
+    select.value = length[s][t];
+    select.addEventListener("change", () => {
+      length[s][t] = parseInt(select.value);
+      updateUI(s);
+    });
+    sequenceModes.appendChild(select);
   }
-
-  label.appendChild(check);
-  label.appendChild(text);
-  reverseModes.appendChild(label);
-});
+}
 
 patternOptions.forEach((mode, i) => {
   const label = document.createElement("label");
