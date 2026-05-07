@@ -1,6 +1,5 @@
 let effect;
-let effectNoise;
-let effectNoise2;
+let effectNoise3;
 let effectFilter;
 let effectDelay;
 let effectReverb;
@@ -16,19 +15,15 @@ function createEffect() {
 
 function connectEffect() {
   effect = createEffect();
-  setupNoise();
-  setupNoise2();
+  setupNoise3();
   setupFilter();
   setupDelay();
   setupReverb();
 
-  effect.input.connect(effectNoise.input);
-  effectNoise.output.connect(effectNoise2.input);
-  effectNoise2.output.connect(effectFilter.input);
+  effect.input.connect(effectNoise3.input);
+  effectNoise3.output.connect(effectFilter.input);
   effectFilter.output.connect(effectDelay.input);
   effectDelay.output.connect(effectReverb.input);
   effectReverb.output.connect(effect.output);
-
-
 }
 

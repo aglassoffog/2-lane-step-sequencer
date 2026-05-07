@@ -204,28 +204,27 @@
       <br>
       <div class="form">
         <div class="form-row">
-          <button id="noiseConnect" class="button">Noise</button>
+          <button id="noise3Connect" class="button">Noise</button>
           <div>
             <div class="form-row2 form-sliders">
-              <span class="stg">Time</span>
-              <input id="noiseTime" type="range" min="0.01" max="0.06" step="0.01" value="0.03">
+              <span class="stg">Freq</span>
+              <input id="noise3Freq" type="range" min="20" max="2000" step="1" value="100">
             </div>
             <div class="form-row2 form-sliders">
-              <span class="stg">FBack</span>
-              <input id="noiseFeedback" type="range" min="0.9" max="1" step="0.01" value="0.9">
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <button id="noise2Connect" class="button">Noise2</button>
-          <div>
-            <div class="form-row2 form-sliders">
-              <span class="stg">Rate</span>
-              <input id="noise2Rate" type="range" min="0.1" max="50" step="0.01" value="0.03">
+              <span class="stg">Over</span>
+              <input id="noise3Over" type="range" min="0" max="3" step="0.01" value="1.5">
             </div>
             <div class="form-row2 form-sliders">
-              <span class="stg">Gain</span>
-              <input id="noise2Gain" type="range" min="0.01" max="1" step="0.01" value="0.5">
+              <span class="stg">Vib</span>
+              <input id="noise3Vib" type="range" min="1" max="10" step="0.01" value="1">
+            </div>
+            <div class="form-row2 form-sliders">
+              <span class="stg">Curve</span>
+              <input id="noise3Curve" type="range" min="1" max="10" step="0.01" value="1">
+            </div>
+            <div class="form-row2 form-sliders">
+              <span class="stg">Multi</span>
+              <input id="noise3Multi" type="range" min="0" max="1" step="0.01" value="0">
             </div>
           </div>
         </div>
@@ -339,8 +338,7 @@
 <script src="script/tabUI.js"></script>
 <script src="script/popup.js"></script>
 <script src="script/noise.js"></script>
-<script src="script/effectNoise.js"></script>
-<script src="script/effectNoise2.js"></script>
+<script src="script/effectNoise3.js"></script>
 <script src="script/effectFilter.js"></script>
 <script src="script/effectDelay.js"></script>
 <script src="script/effectReverb.js"></script>

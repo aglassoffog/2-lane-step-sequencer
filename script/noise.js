@@ -67,11 +67,107 @@ function createBand(freq) {
 }
 
 function makeDistortionCurve(amount = 50) {
-  const n = 44100;
-  const curve = new Float32Array(n);
-  for (let i = 0; i < n; i++) {
-    const x = (i * 2) / n - 1;
+  const samples = 44100;
+  const curve = new Float32Array(samples);
+  for (let i = 0; i < samples; i++) {
+    const x = (i * 2) / samples - 1;
     curve[i] = Math.tanh(amount * x);
   }
   return curve;
+}
+
+function createWaveFolderCurve(amount = 1) {
+  const samples = 44100;
+  const curve = new Float32Array(samples);
+
+  for (let i = 0; i < samples; i++) {
+    let x = (i / samples) * 2 - 1;
+
+    // 折り返し（簡易版）
+    // let y = x * amount
+    let y = Math.tanh(x * amount + 0.2);
+
+    if (y > 1) y = 2 - y;
+    if (y < -1) y = -2 - y;
+
+    curve[i] = y;
+  }
+
+  return curve;
+}
+
+// amount < 1 → 急激に立ち上がる
+// amount > 1 → なだらか
+function createCurve(amount = 1) {
+  const samples = 10;
+  const curve = new Float32Array(samples);
+
+  for (let i = 0; i < samples; i++) {
+    let x = (i / samples) * 2 - 1;
+
+    // カーブ（例：指数っぽい）
+    let y = Math.sign(x) * Math.pow(Math.abs(x), amount);
+
+    curve[i] = y;
+  }
+  console.log(curve);
+  return curve;
+}
+
+// k = 3〜10
+function createLogCurve(amount = 5) {
+  const samples = 10;
+  const curve = new Float32Array(samples);
+
+  for (let i = 0; i < samples; i++) {
+    let x = i / (samples - 1);  // 0〜1
+
+    // logカーブ
+    let y = Math.log(1 + amount * x) / Math.log(1 + amount);
+
+    // -1〜1に戻す
+    curve[i] = y * 2 - 1;
+  }
+  console.log(curve);
+  return curve;
+}
+
+  let beforNote = 200;
+
+function createPitchBuffer(lfo) {
+  const length = 44100;
+  const buffer = audioCtx.createBuffer(1, length, audioCtx.sampleRate);
+  const data = buffer.getChannelData(0);
+
+  const stepSize = length / lfo;
+  let newStepSize = stepSize;
+  const amount = 3;
+
+  for (let i = 0; i < length; i += newStepSize) {
+    const min = 60;
+    const max = 300;
+    const r = Math.random();
+    const freq = min * Math.pow(max / min, r);
+    // const freq = min * Math.pow(2, Math.floor(r * max));
+    // const note = quantizeFreqToCMajor(freq);
+    // newStepSize = stepSize * Math.pow(2, Math.floor(r * 8));
+    // newStepSize = stepSize;
+
+    console.log("freq", freq);
+    console.log("newStepSize", newStepSize);
+    const diff = (freq - beforNote); // / newStepSize;
+
+    // const res = [];
+    for (let j = 0; j < newStepSize && i + j < length; j++) {
+      let x = j / (newStepSize - 1); // 0〜1
+      let y = Math.log(1 + amount * x) / Math.log(1 + amount);
+
+      data[i + j] = beforNote + (diff * y);
+      // res.push(y);
+    }
+    // console.log(res);
+    beforNote = freq;
+  }
+
+  return buffer;
 }

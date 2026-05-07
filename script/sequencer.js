@@ -17,14 +17,6 @@ let sequenceMode = [
   [0,0,0],
   [0,0,0]
 ];
-let reverseTrack = [
-  [false,false,false],
-  [false,false,false]
-];
-let roundTrack = [
-  []
-
-];
 let patternMode = 0;
 let currentSequence = 0;
 let currentPattern = 0;
