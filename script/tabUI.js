@@ -1,3 +1,4 @@
+let isOpen = false;
 const tabNames = [
   "Pattern",
   "Mixer",
@@ -35,23 +36,18 @@ tabs.forEach(btn => {
 
 const panel = document.getElementById("right");
 const innerWidth = window.innerWidth;
-document.addEventListener("click", (e) => {
-  if (e.target === panelBtn) {
+panelBtn.addEventListener("click", (e) => {
+  if (isOpen) {
+    panel.classList.remove("open");
+    document.body.classList.remove("no-scroll");
+  } else {
     panel.classList.toggle("open");
     const vv = window.visualViewport;
     panel.style.right = (innerWidth - vv.width - vv.offsetLeft) + "px";
     document.body.classList.toggle("no-scroll");
-  } else if (e.target === playBtn) {
-  } else if (e.target === patternName1 || e.target === patternName2) {
-  } else if (e.target === saveBtn1 || e.target === saveBtn2) {
-  } else if (e.target === clrBtn1 || e.target === clrBtn2) {
-    // ポップアップが出ないボタンはそのまま押せる
-  } else if (!document.body.contains(e.target)) {
-    // すでに削除済み場合は判定しない
-  } else if (!panel.contains(e.target)) {
-    panel.classList.remove("open");
-    document.body.classList.remove("no-scroll");
   }
+  isOpen = !isOpen;
+  panelBtn.classList.toggle("playing", isOpen);
 });
 
 function updateSlidbar(bar) {
