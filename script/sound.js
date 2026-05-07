@@ -16,6 +16,25 @@ function playKick(dest, time, velocity, sound, pitch) {
   osc.stop(time + sound.Envelope.Duration);
 }
 
+function playKick2(dest, time, velocity, sound, pitch) {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  const base = 130;
+  const range = 40;
+  const freq = base + pitch * range;
+  osc.type = "square";
+  osc.frequency.setValueAtTime(freq, time);
+  osc.frequency.exponentialRampToValueAtTime(freq - 100, time + sound.Envelope.Duration);
+
+  gain.gain.setValueAtTime(velocity, time);
+  gain.gain.exponentialRampToValueAtTime(0.001, time + sound.Envelope.Duration);
+
+  osc.connect(gain).connect(dest);
+  osc.start(time);
+  osc.stop(time + sound.Envelope.Duration);
+}
+
 function playSine(dest, time, velocity, sound, pitch) {
   const osc = audioCtx.createOscillator();
   const base = 220;

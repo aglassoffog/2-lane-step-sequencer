@@ -1,5 +1,6 @@
 const soundNames = {
   Kick:    {Play: playKick, Envelope: {Attack: null, Duration: 0.1}},
+  Kick2:   {Play: playKick2, Envelope: {Attack: null, Duration: 0.1}},
 
   Click:   {Play: playClick, Envelope: {Attack: 0, Duration: 0.1}},
   HiHat:   {Play: playHiHat, Envelope: {Attack: 0, Duration: 0.4}},
