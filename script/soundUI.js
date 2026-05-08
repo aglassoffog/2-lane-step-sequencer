@@ -18,6 +18,7 @@ const soundNames = {
   Noise2:  {Play: playNoise2, Envelope: {Attack: 0, Duration: 0.4}},
 
   Sine:    {Play: playSine, Envelope: {Attack: 0, Duration: 0.4}},
+  Sine2:   {Play: playSine2, Envelope: {Attack: 0, Duration: 0.4}},
   Bass:    {Play: playBass, Envelope: {Attack: 0, Duration: 0.3}},
   Pad:     {Play: playPad, Envelope: {Attack: 0.2, Duration: 1}}
 };

@@ -65,6 +65,33 @@ function playSine(dest, time, velocity, sound, pitch) {
   osc.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
 }
 
+function playSine2(dest, time, velocity, sound, pitch) {
+    const osc1 = audioCtx.createOscillator()
+    osc1.type = "sine"
+    const osc2 = audioCtx.createOscillator()
+    osc2.type = "triangle"
+
+    const base = 220;
+    const range = 440;
+    const freq = base + pitch * range;
+    osc1.frequency.value = freq;
+    osc2.frequency.value = freq * Math.pow(2, 7/12);
+
+    const gain = audioCtx.createGain();
+    gain.gain.setValueAtTime(0, time);
+    gain.gain.linearRampToValueAtTime(0.4 * velocity, time + (0.5 * sound.Envelope.Attack));
+    gain.gain.exponentialRampToValueAtTime(0.001, time + sound.Envelope.Duration);
+
+    osc1.connect(gain);
+    osc2.connect(gain);
+    gain.connect(dest);
+
+    osc1.start(time);
+    osc2.start(time);
+    osc1.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
+    osc2.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
+}
+
 function playBass(dest, time, velocity, sound, pitch) {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
