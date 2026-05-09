@@ -111,6 +111,51 @@ function playBass(dest, time, velocity, sound, pitch) {
   osc.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
 }
 
+function playLead(dest, time, velocity, sound, pitch) {
+  const osc1 = audioCtx.createOscillator();
+  const osc2 = audioCtx.createOscillator();
+  const osc3 = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  const filter = audioCtx.createBiquadFilter();
+  const lfo = audioCtx.createOscillator();
+  const lfoGain = audioCtx.createGain();
+
+  const base = 440;
+  const range = 880;
+  const freq = base + pitch * range;
+  osc1.type = "triangle";
+  osc2.type = "square";
+  osc3.type = "triangle";
+  osc1.frequency.value = freq;
+  osc2.frequency.value = freq;
+  osc3.frequency.value = freq * 0.5;
+  osc1.detune.value = -8;
+  osc2.detune.value = 8;
+  lfo.frequency.value = 5;
+  lfoGain.gain.value = 3;
+
+  gain.gain.setValueAtTime(0, time);
+  gain.gain.linearRampToValueAtTime(0.2 * velocity, time + (0.5 * sound.Envelope.Attack));
+  gain.gain.exponentialRampToValueAtTime(0.001, time + sound.Envelope.Duration);
+
+  osc1.connect(gain);
+  osc2.connect(gain);
+  osc3.connect(gain);
+  gain.connect(dest);
+  lfo.connect(lfoGain);
+  lfoGain.connect(osc1.detune);
+  lfoGain.connect(osc2.detune);
+
+  osc1.start(time);
+  osc2.start(time);
+  osc3.start(time);
+  lfo.start(time);
+  osc1.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
+  osc2.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
+  osc3.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
+  lfo.stop(time + sound.Envelope.Attack + sound.Envelope.Duration);
+}
+
 function playPad(dest, time, velocity, sound, pitch) {
   const osc1 = audioCtx.createOscillator();
   const osc2 = audioCtx.createOscillator();

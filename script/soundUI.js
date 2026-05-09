@@ -4,7 +4,7 @@ const soundNames = {
 
   Click:   {Play: playClick, Envelope: {Attack: 0, Duration: 0.1}},
   HiHat:   {Play: playHiHat, Envelope: {Attack: 0, Duration: 0.4}},
-  OpHat:   {Play: playOpenHat, Envelope: {Attack: 0, Duration: 0.4}},
+  OpHat:   {Play: playOpenHat, Envelope: {Attack: 0, Duration: 0.7}},
   Crash:   {Play: playCrash, Envelope: {Attack: 0, Duration: 1}},
   Ride:    {Play: playRide, Envelope: {Attack: 0, Duration: 0.8}},
   Crystal: {Play: playCrystal, Envelope: {Attack: 0, Duration: 1.5}},
@@ -20,6 +20,7 @@ const soundNames = {
   Sine:    {Play: playSine, Envelope: {Attack: 0, Duration: 0.4}},
   Sine2:   {Play: playSine2, Envelope: {Attack: 0, Duration: 0.4}},
   Bass:    {Play: playBass, Envelope: {Attack: 0, Duration: 0.3}},
+  Lead:    {Play: playLead, Envelope: {Attack: 0, Duration: 0.5}},
   Pad:     {Play: playPad, Envelope: {Attack: 0.2, Duration: 1}}
 };
 let soundSeqIndex;
