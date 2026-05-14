@@ -47,7 +47,13 @@ function openSound(seqIndex, trackIndex) {
     button.addEventListener("click", () => {
       label.textContent = type;
       soundName.value = "";
-      soundAttack.value = sound.Envelope.Attack;
+      if (sound.Envelope.Attack == null) {
+        soundAttack.disabled = true;
+        soundAttack.value = 0;
+      } else {
+        soundAttack.disabled = false;
+        soundAttack.value = sound.Envelope.Attack;
+      }
       soundDuration.value = sound.Envelope.Duration;
       sounds[seqIndex][trackIndex].Type = type;
       sounds[seqIndex][trackIndex].Envelope.Attack = sound.Envelope.Attack;
@@ -65,11 +71,12 @@ function openSound(seqIndex, trackIndex) {
   div.appendChild(label);
   div.appendChild(div2);
 
-  soundAttack.value = sounds[seqIndex][trackIndex].Envelope.Attack;
   if (sounds[seqIndex][trackIndex].Envelope.Attack == null) {
-      soundAttack.disabled = true;
+    soundAttack.disabled = true;
+    soundAttack.value = 0;
   } else {
     soundAttack.disabled = false;
+    soundAttack.value = sounds[seqIndex][trackIndex].Envelope.Attack;
   }
 
   soundDuration.value = sounds[seqIndex][trackIndex].Envelope.Duration;
