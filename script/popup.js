@@ -130,7 +130,7 @@ function createKeyDiv(seqIndex, trackIndex) {
 }
 
 function createNoteSpan(track, stepIndex, input, sound) {
-  const freq = quantizeFreq2(track[stepIndex], sound);
+  const freq = quantizeFreq(track[stepIndex], sound);
   const note = freqToNote(freq);
   input.value = freqToPitch(freq, sound);
   return note;

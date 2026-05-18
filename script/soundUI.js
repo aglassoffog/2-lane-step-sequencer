@@ -7,7 +7,7 @@ const soundNames = {
   OpHat:   {Play: playOpenHat, Envelope: {Attack: 0, Duration: 0.7}},
   Crash:   {Play: playCrash, Envelope: {Attack: 0, Duration: 1}},
   Ride:    {Play: playRide, Envelope: {Attack: 0, Duration: 0.8}},
-  Crystal: {Play: playCrystal, Envelope: {Attack: 0, Duration: 1.5}},
+  Crystal: {Play: playCrystal, Envelope: {Attack: 0, Duration: 1.5}, Scale: 0, Pitch: {Base: 698.46, Oct: 1}}, //F5-6
 
   Snare:   {Play: playSnare, Envelope: {Attack: 0, Duration: 0.2}},
   Clap:    {Play: playClap, Envelope: {Attack: 0, Duration: 0.3}},

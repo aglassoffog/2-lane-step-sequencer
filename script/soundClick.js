@@ -163,9 +163,9 @@ function playCrystal(dest, time, velocity, sound, pitch) {
   modOsc.type = "sine";
 
   // const freq = 1040;
-  const base = 840;
-  const range = 400;
-  const freq = base + pitch * range;
+  // const base = 840;
+  // const range = 400;
+  const freq = sound.Pitch.Base * Math.pow(2, pitch * sound.Pitch.Oct);
   carrierOsc.frequency.value = freq;
   modOsc.frequency.value = freq * 2.7;
   modGain.gain.value = freq * 0.4;
