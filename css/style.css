@@ -168,6 +168,12 @@ li span {
   border-radius: 50%;
   margin-left: -8px;
 }
+.step-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
 
 
 .tempo-div {
@@ -184,12 +190,6 @@ li span {
 }
 .shift-mode span {
   margin-right: 10px;
-}
-.sound-load {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
 }
 
 

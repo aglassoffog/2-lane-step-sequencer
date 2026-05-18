@@ -37,10 +37,7 @@ function playKick2(dest, time, velocity, sound, pitch) {
 
 function playSine(dest, time, velocity, sound, pitch) {
   const osc = audioCtx.createOscillator();
-  const base = 220;
-  const range = 440;
-  const freq = base + pitch * range;
-  osc.frequency.value = freq;
+  osc.frequency.value = sound.Pitch.Base * Math.pow(2, pitch * sound.Pitch.Oct);
 
   const filter = audioCtx.createBiquadFilter();
   filter.type = "lowpass";
@@ -71,9 +68,7 @@ function playSine2(dest, time, velocity, sound, pitch) {
     const osc2 = audioCtx.createOscillator()
     osc2.type = "triangle"
 
-    const base = 220;
-    const range = 440;
-    const freq = base + pitch * range;
+    const freq = sound.Pitch.Base * Math.pow(2, pitch * sound.Pitch.Oct);
     osc1.frequency.value = freq;
     osc2.frequency.value = freq * Math.pow(2, 7/12);
 
@@ -96,11 +91,8 @@ function playBass(dest, time, velocity, sound, pitch) {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
 
-  const base = 60;
-  const range = 100;
-  const freq = base + pitch * range;
   osc.type = "sawtooth";
-  osc.frequency.value = freq;
+  osc.frequency.value = sound.Pitch.Base * Math.pow(2, pitch * sound.Pitch.Oct);
 
   gain.gain.setValueAtTime(0, time);
   gain.gain.linearRampToValueAtTime(0.5 * velocity, time + (0.5 * sound.Envelope.Attack));
@@ -120,9 +112,7 @@ function playLead(dest, time, velocity, sound, pitch) {
   const lfo = audioCtx.createOscillator();
   const lfoGain = audioCtx.createGain();
 
-  const base = 440;
-  const range = 880;
-  const freq = base + pitch * range;
+  const freq = sound.Pitch.Base * Math.pow(2, pitch * sound.Pitch.Oct);
   osc1.type = "triangle";
   osc2.type = "square";
   osc3.type = "triangle";
@@ -162,9 +152,7 @@ function playPad(dest, time, velocity, sound, pitch) {
   const gain = audioCtx.createGain();
   const filter = audioCtx.createBiquadFilter();
 
-  const base = 80;
-  const range = 2000;
-  const freq = base + pitch * range;
+  const freq = sound.Pitch.Base * Math.pow(2, pitch * sound.Pitch.Oct);
   osc1.type = osc2.type = "sawtooth";
   osc1.frequency.value = osc2.frequency.value = freq;
   osc1.detune.value = -10;

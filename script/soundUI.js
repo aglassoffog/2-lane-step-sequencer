@@ -17,11 +17,11 @@ const soundNames = {
   Noise:   {Play: playNoise, Envelope: {Attack: 0, Duration: 1.6}},
   Noise2:  {Play: playNoise2, Envelope: {Attack: 0, Duration: 0.4}},
 
-  Sine:    {Play: playSine, Envelope: {Attack: 0, Duration: 0.4}},
-  Sine2:   {Play: playSine2, Envelope: {Attack: 0, Duration: 0.4}},
-  Bass:    {Play: playBass, Envelope: {Attack: 0, Duration: 0.3}},
-  Lead:    {Play: playLead, Envelope: {Attack: 0, Duration: 0.5}},
-  Pad:     {Play: playPad, Envelope: {Attack: 0.2, Duration: 1}}
+  Sine:    {Play: playSine, Envelope: {Attack: 0, Duration: 0.4}, Scale: 0, Pitch: {Base: 220, Oct: 3}}, // A3-6
+  Sine2:   {Play: playSine2, Envelope: {Attack: 0, Duration: 0.4}, Scale: 0, Pitch: {Base: 220, Oct: 3}}, // A3-6
+  Bass:    {Play: playBass, Envelope: {Attack: 0, Duration: 0.3}, Scale: 0, Pitch: {Base: 55, Oct: 2}}, // A1-3
+  Lead:    {Play: playLead, Envelope: {Attack: 0, Duration: 0.5}, Scale: 0, Pitch: {Base: 440, Oct: 3}}, // A4-7
+  Pad:     {Play: playPad, Envelope: {Attack: 0.2, Duration: 1}, Scale: 0, Pitch: {Base: 55, Oct: 5}} // A1-6
 };
 let soundSeqIndex;
 let soundTrackIndex;
@@ -34,18 +34,18 @@ function openSound(seqIndex, trackIndex) {
   const div = document.getElementById("sound-load");
   div.innerHTML = "";
 
-  const label = document.createElement("label");
-  label.textContent = sounds[seqIndex][trackIndex].Type;
-  label.classList.add("form-label", "seq"+(seqIndex+1));
+  const typeLabel = document.createElement("label");
+  typeLabel.textContent = sounds[seqIndex][trackIndex].Type;
+  typeLabel.classList.add("form-label", "seq"+(seqIndex+1));
 
-  const div2 = document.createElement("div");
+  const soundTypeDiv = document.createElement("div");
   let cnt = 1;
   for (const [type, sound] of Object.entries(soundNames)) {
     const button = document.createElement("button");
     button.classList.add("button");
     button.textContent = type;
     button.addEventListener("click", () => {
-      label.textContent = type;
+      typeLabel.textContent = type;
       soundName.value = "";
       if (sound.Envelope.Attack == null) {
         soundAttack.disabled = true;
@@ -58,18 +58,22 @@ function openSound(seqIndex, trackIndex) {
       sounds[seqIndex][trackIndex].Type = type;
       sounds[seqIndex][trackIndex].Envelope.Attack = sound.Envelope.Attack;
       sounds[seqIndex][trackIndex].Envelope.Duration = sound.Envelope.Duration;
+      sounds[seqIndex][trackIndex].Scale = sound.Scale;
+      sounds[seqIndex][trackIndex].Key = 0;
+      sounds[seqIndex][trackIndex].Pitch = sound.Pitch;
+
       updateUI(seqIndex);
     });
 
-    div2.appendChild(button);
+    soundTypeDiv.appendChild(button);
     if (cnt % 5 === 0) {
       const br = document.createElement("br");      
-      div2.appendChild(br);
+      soundTypeDiv.appendChild(br);
     }
     cnt++;
   }
-  div.appendChild(label);
-  div.appendChild(div2);
+  div.appendChild(typeLabel);
+  div.appendChild(soundTypeDiv);
 
   if (sounds[seqIndex][trackIndex].Envelope.Attack == null) {
     soundAttack.disabled = true;
@@ -90,12 +94,6 @@ soundDuration.addEventListener("input", () => {
   sounds[soundSeqIndex][soundTrackIndex].Envelope.Duration = parseFloat(soundDuration.value);
 });
 
-soundPopup.addEventListener("click", e => {
-  if (e.target === soundPopup) {
-    soundPopup.classList.add("hidden");
-  }
-});
-
 soundSaveBtn.addEventListener("click", () => {
   const name = soundName.value.trim();
   if (!name) return alert("Please enter the sound name.");
@@ -104,4 +102,10 @@ soundSaveBtn.addEventListener("click", () => {
   };
   localStorage.setItem("sound_" + name, JSON.stringify(data));
   updateSoundList();
+});
+
+soundPopup.addEventListener("click", e => {
+  if (e.target === soundPopup) {
+    soundPopup.classList.add("hidden");
+  }
 });
